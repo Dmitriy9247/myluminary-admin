@@ -40,6 +40,7 @@ const useLoginSubmit = () => {
       //     notifyError(err ? err.response.data.message : err.message);
       //     setLoading(false);
       //   });
+        setLoading(false);
         Cookies.set('adminInfo', JSON.stringify(jsonData), {
           expires: cookieTimeOut,
         });
