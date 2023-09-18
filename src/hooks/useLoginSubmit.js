@@ -5,6 +5,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { AdminContext } from '../context/AdminContext';
 import AdminServices from '../services/AdminServices';
 import { notifyError, notifySuccess } from '../utils/toast';
+import jsonData from '../utils/auth.json';
+
 
 const useLoginSubmit = () => {
   const [loading, setLoading] = useState(false);
@@ -22,22 +24,26 @@ const useLoginSubmit = () => {
     const cookieTimeOut = 0.5;
 
     if (location.pathname === '/login') {
-      AdminServices.loginAdmin({ email, password })
-        .then((res) => {
-          if (res) {
-            setLoading(false);
-            notifySuccess('Login Success!');
-            dispatch({ type: 'USER_LOGIN', payload: res });
-            Cookies.set('adminInfo', JSON.stringify(res), {
-              expires: cookieTimeOut,
-            });
-            history.replace('/');
-          }
-        })
-        .catch((err) => {
-          notifyError(err ? err.response.data.message : err.message);
-          setLoading(false);
+      // AdminServices.loginAdmin({ email, password })
+      //   .then((res) => {
+      //     if (res) {
+      //       setLoading(false);
+      //       notifySuccess('Login Success!');
+      //       dispatch({ type: 'USER_LOGIN', payload: res });
+      //       Cookies.set('adminInfo', JSON.stringify(res), {
+      //         expires: cookieTimeOut,
+      //       });
+      //       history.replace('/');
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     notifyError(err ? err.response.data.message : err.message);
+      //     setLoading(false);
+      //   });
+        Cookies.set('adminInfo', JSON.stringify(jsonData), {
+          expires: cookieTimeOut,
         });
+        history.replace('/');
     }
 
     if (location.pathname === '/signup') {
