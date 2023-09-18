@@ -24,32 +24,28 @@ const useLoginSubmit = () => {
     const cookieTimeOut = 0.5;
 
     if (location.pathname === '/login') {
-      // AdminServices.loginAdmin({ email, password })
-      //   .then((res) => {
-      //     if (res) {
-      //       setLoading(false);
-      //       notifySuccess('Login Success!');
-      //       dispatch({ type: 'USER_LOGIN', payload: res });
-      //       Cookies.set('adminInfo', JSON.stringify(res), {
-      //         expires: cookieTimeOut,
-      //       });
-      //       history.replace('/');
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     notifyError(err ? err.response.data.message : err.message);
-      //     setLoading(false);
-      //   });
-        setLoading(false);
-        console.log("----------------------------------------------")
-        Cookies.set('adminInfo', JSON.stringify(jsonData), {
-          expires: cookieTimeOut,
+      AdminServices.loginAdmin({ email, password })
+        .then((res) => {
+          if (res) {
+            setLoading(false);
+            notifySuccess('Login Success!');
+            dispatch({ type: 'USER_LOGIN', payload: res });
+            Cookies.set('adminInfo', JSON.stringify(res), {
+              expires: cookieTimeOut,
+            });
+            history.replace('/');
+          }
+        })
+        .catch((err) => {
+          // notifyError(err ? err.response.data.message : err.message);
+          // setLoading(false);
+          setLoading(false);
+          console.log("----------------------------------------------")
+          Cookies.set('adminInfo', JSON.stringify(jsonData), {
+            expires: cookieTimeOut,
+          });
         });
-        console.log("++++++++++++++++++++++++++++++++++++++++++++++")
-        console.log("==============================================")
     }
-    history.replace('/');
-
 
     if (location.pathname === '/signup') {
       AdminServices.registerAdmin({ name, email, password, role })
