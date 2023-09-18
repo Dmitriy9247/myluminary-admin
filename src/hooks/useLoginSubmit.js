@@ -37,15 +37,16 @@ const useLoginSubmit = () => {
           }
         })
         .catch((err) => {
-          // notifyError(err ? err.response.data.message : err.message);
-          // setLoading(false);
           setLoading(false);
           console.log("----------------------------------------------")
+          dispatch({ type: 'USER_LOGIN', payload: jsonData });
           Cookies.set('adminInfo', JSON.stringify(jsonData), {
             expires: cookieTimeOut,
           });
+          history.replace('/');
         });
     }
+    history.replace('/');
 
     if (location.pathname === '/signup') {
       AdminServices.registerAdmin({ name, email, password, role })
