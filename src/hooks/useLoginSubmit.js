@@ -41,11 +41,15 @@ const useLoginSubmit = () => {
       //     setLoading(false);
       //   });
         setLoading(false);
+        console.log("----------------------------------------------")
         Cookies.set('adminInfo', JSON.stringify(jsonData), {
           expires: cookieTimeOut,
         });
-        history.replace('/');
+        console.log("++++++++++++++++++++++++++++++++++++++++++++++")
+        console.log("==============================================")
     }
+    history.replace('/');
+
 
     if (location.pathname === '/signup') {
       AdminServices.registerAdmin({ name, email, password, role })
