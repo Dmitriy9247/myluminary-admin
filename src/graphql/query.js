@@ -6,6 +6,7 @@ query Categories {
         _id
         title
         slug
+        status
         parent {
             _id
             title

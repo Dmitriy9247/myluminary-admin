@@ -13,10 +13,10 @@ const ShowHideButton = ({ id, status }) => {
 
   const handleChangeStatus = (id) => {
     let newStatus;
-    if (status === 'Show') {
-      newStatus = 'Hide';
+    if (status === true) {
+      newStatus = false;
     } else {
-      newStatus = 'Show';
+      newStatus = true;
     }
 
     if (location.pathname === '/category') {
@@ -43,7 +43,7 @@ const ShowHideButton = ({ id, status }) => {
       className="cursor-pointer text-xl flex justify-center text-center"
       onClick={() => handleChangeStatus(id)}
     >
-      {status === 'Show' ? (
+      {status === true ? (
         <BsToggleOn className="text-green-500" />
       ) : (
         <BsToggleOff className="text-orange-500" />
