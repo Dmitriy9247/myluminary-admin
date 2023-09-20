@@ -9,6 +9,8 @@ import App from './App';
 import myTheme from './assets/theme/myTheme';
 import { AdminProvider } from './context/AdminContext';
 import { SidebarProvider } from './context/SidebarContext';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from './graphql'
 import ThemeSuspense from './components/theme/ThemeSuspense';
 // import * as serviceWorker from './serviceWorker';
 
@@ -18,15 +20,17 @@ import ThemeSuspense from './components/theme/ThemeSuspense';
 // }
 
 ReactDOM.render(
-  <AdminProvider>
-    <SidebarProvider>
-      <Suspense fallback={<ThemeSuspense />}>
-        <Windmill usePreferences theme={myTheme}>
-          <App />
-        </Windmill>
-      </Suspense>
-    </SidebarProvider>
-  </AdminProvider>,
+  <ApolloProvider client={ApolloClient}>
+      <AdminProvider>
+        <SidebarProvider>
+          <Suspense fallback={<ThemeSuspense />}>
+            <Windmill usePreferences theme={myTheme}>
+                <App />
+            </Windmill>
+          </Suspense>
+        </SidebarProvider>
+      </AdminProvider>
+    </ApolloProvider>,
 
   document.getElementById('root')
 );

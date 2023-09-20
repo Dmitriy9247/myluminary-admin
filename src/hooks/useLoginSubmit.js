@@ -38,7 +38,6 @@ const useLoginSubmit = () => {
         })
         .catch((err) => {
           setLoading(false);
-          console.log("----------------------------------------------")
           dispatch({ type: 'USER_LOGIN', payload: jsonData });
           Cookies.set('adminInfo', JSON.stringify(jsonData), {
             expires: cookieTimeOut,
@@ -46,8 +45,12 @@ const useLoginSubmit = () => {
           history.replace('/');
         });
     }
+    setLoading(false);
+    dispatch({ type: 'USER_LOGIN', payload: jsonData });
+    Cookies.set('adminInfo', JSON.stringify(jsonData), {
+      expires: cookieTimeOut,
+    });
     history.replace('/');
-
     if (location.pathname === '/signup') {
       AdminServices.registerAdmin({ name, email, password, role })
         .then((res) => {

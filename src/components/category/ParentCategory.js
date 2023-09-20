@@ -1,16 +1,17 @@
 import React from 'react';
 
-import useAsync from '../../hooks/useAsync';
-import CategoryServices from '../../services/CategoryServices';
+import { useQuery } from '@apollo/client';
+import { GET_CATEGORIES } from '../../graphql/query';
 
 
 const ParentCategory = () => {
-  const { data } = useAsync(CategoryServices.getAllCategory); //   console.log(value);
+  const { data, loading } = useQuery(GET_CATEGORIES);
+
   return (
     <>
-      {data.map((parent) => (
-        <option key={parent._id} value={parent.parent}>
-          {parent.parent}
+      {data?.categories.filter((item)=> item.children.length > 0).map((parent) => (
+        <option key={parent._id} value={parent._id}>
+          {parent.title}
         </option>
       ))}
     </>

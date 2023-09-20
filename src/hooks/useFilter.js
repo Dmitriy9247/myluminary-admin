@@ -9,6 +9,7 @@ import ProductServices from '../services/ProductServices';
 import { notifyError, notifySuccess } from '../utils/toast';
 
 const useFilter = (data) => {
+
   const [filter, setFilter] = useState(null);
   const [sortedField, setSortedField] = useState('');
   const [searchText, setSearchText] = useState('');
@@ -88,7 +89,8 @@ const useFilter = (data) => {
     //products filtering
 
     if (filter) {
-      services = services.filter((item) => item.parent === filter);
+      console.log(filter)
+      services = services.filter((item) => item.parent && item.parent._id === filter);
     }
 
     if (sortedField === 'Low') {
@@ -106,7 +108,7 @@ const useFilter = (data) => {
     //category searching
     if (categoryType) {
       services = services.filter((search) =>
-        search.type.toLowerCase().includes(categoryType.toLowerCase())
+        search.title.toLowerCase().includes(categoryType.toLowerCase())
       );
     }
 
@@ -151,7 +153,6 @@ const useFilter = (data) => {
         dayjs(order.createdAt).isBetween(date, new Date())
       );
     }
-
     return services;
   }, [
     filter,

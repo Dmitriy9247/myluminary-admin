@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_CATEGORIES } from '../graphql/query';
 import {
   Table,
   TableHeader,
@@ -12,7 +14,6 @@ import {
   Pagination,
 } from '@windmill/react-ui';
 import { FiPlus } from 'react-icons/fi';
-
 import useAsync from '../hooks/useAsync';
 import useFilter from '../hooks/useFilter';
 import NotFound from '../components/table/NotFound';
@@ -27,8 +28,8 @@ import CategoryDrawer from '../components/drawer/CategoryDrawer';
 
 const Category = () => {
   const { toggleDrawer } = useContext(SidebarContext);
-  const { data, loading } = useAsync(CategoryServices.getAllCategory);
-
+  // const { data, loading } = useAsync(CategoryServices.getAllCategory);
+  const { data, loading} = useQuery(GET_CATEGORIES)
   const {
     categoryRef,
     setFilter,
@@ -38,7 +39,7 @@ const Category = () => {
     dataTable,
     serviceData,
     handleSubmitCategory,
-  } = useFilter(data);
+  } = useFilter(data?.categories);
 
   return (
     <>
@@ -88,16 +89,16 @@ const Category = () => {
 
       {loading ? (
         <Loading loading={loading} />
-      ) : serviceData.length !== 0 ? (
+      ) : serviceData && serviceData.length !== 0 ? (
         <TableContainer className="mb-8">
           <Table>
             <TableHeader>
               <tr>
                 <TableCell>ID</TableCell>
                 <TableCell>Icon</TableCell>
+                <TableCell>Title</TableCell>
                 <TableCell>Parent</TableCell>
                 <TableCell>Children</TableCell>
-                <TableCell>Type</TableCell>
                 <TableCell className="text-center">Published</TableCell>
                 <TableCell className="text-right">Actions</TableCell>
               </tr>

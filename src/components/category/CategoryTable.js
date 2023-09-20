@@ -19,40 +19,39 @@ const CategoryTable = ({ categories }) => {
       </MainDrawer>
 
       <TableBody>
-        {categories?.map((parent) => (
-          <TableRow key={parent._id}>
+        {categories?.map((item) => (
+          <TableRow key={item._id}>
             <TableCell className="font-semibold uppercase text-xs">
-              {parent._id.substring(20, 24)}
+              {item._id.substring(20, 24)}
             </TableCell>
             <TableCell>
               <Avatar
                 className="hidden mr-3 md:block bg-gray-50 p-1"
-                src={parent.icon}
-                alt={parent.parent}
+                src={item.icon}
+                alt={item.title}
               />
             </TableCell>
-
+            <TableCell className="text-sm">{item.title}</TableCell>
+            <TableCell className="text-sm ">{item.parent && item.parent.title}</TableCell>
             <TableCell className="font-medium text-sm">
               <div className="flex flex-row">
-                {parent?.children?.map((child, i) => (
+                {item?.children?.map((child, i) => (
                   <span
                     key={i + 1}
                     className="bg-gray-200 mr-2 border-0 text-gray-500 rounded-full inline-flex items-center justify-center px-2 py-1 text-xs font-semibold font-serif mt-2 dark:bg-gray-700 dark:text-gray-300"
                   >
-                    {child}
+                    {child.title}
                   </span>
                 ))}
               </div>
             </TableCell>
-            <TableCell className="text-sm ">{parent.children.length}</TableCell>
-            <TableCell className="text-sm">{parent.type}</TableCell>
             <TableCell>
-              <ShowHideButton id={parent._id} status={parent.status} />
+              <ShowHideButton id={item._id} status={item.status} />
             </TableCell>
             <TableCell>
               <EditDeleteButton
-                id={parent._id}
-                title={parent.parent}
+                id={item._id}
+                title={item.title}
                 handleUpdate={handleUpdate}
                 handleModalOpen={handleModalOpen}
               />
