@@ -48,39 +48,42 @@ const CategoryDrawer = ({ id }) => {
               </div>
             </div>
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-              <LabelArea label="Product Type" />
+              <LabelArea label="Parent Category" />
               <div className="col-span-8 sm:col-span-4">
                 <SelectOption
                   register={register}
-                  label="Product type"
-                  name="type"
+                  label="Parent Category"
+                  name="parentId"
                 />
                 <Error errorName={errors.type} />
               </div>
             </div>
 
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-              <LabelArea label="Parent Category" />
+              <LabelArea label="Category Title" />
               <div className="col-span-8 sm:col-span-4">
                 <InputArea
                   register={register}
                   label="Category title"
-                  name="parent"
+                  name="title"
                   type="text"
                   placeholder="Category title"
                 />
-                <Error errorName={errors.parent} />
+                <Error errorName={errors.title} />
               </div>
             </div>
 
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-              <LabelArea label="Child Category" />
+              <LabelArea label="Category Description" />
               <div className="col-span-8 sm:col-span-4">
-                <ReactTagInput
-                  placeholder="Child category  (Write then press enter to add new child category )"
-                  tags={children}
-                  onChange={(child) => setChildren(child)}
+                <InputArea
+                  register={register}
+                  label="Description"
+                  name="description"
+                  type="text"
+                  placeholder="Category description"
                 />
+                <Error errorName={errors.description} />
               </div>
             </div>
           </div>

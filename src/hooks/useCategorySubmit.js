@@ -1,6 +1,8 @@
+import { useMutation } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
+import { CREATE_CATEGORY } from '../graphql/mutation';
 import CategoryServices from '../services/CategoryServices';
 import { notifyError, notifySuccess } from '../utils/toast';
 
@@ -8,6 +10,7 @@ const useCategorySubmit = (id) => {
   const [imageUrl, setImageUrl] = useState('');
   const [children, setChildren] = useState([]);
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
+  const [createCategory] = useMutation(CREATE_CATEGORY)
 
   const {
     register,
@@ -17,18 +20,21 @@ const useCategorySubmit = (id) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ parent, type }) => {
+  const onSubmit = ({ parentId, title, description }) => {
     if (!imageUrl) {
       notifyError('Icon is required!');
       return;
     }
     const categoryData = {
-      parent: parent,
+      parentId: parentId,
       // slug: slug,
-      type: type,
-      icon: imageUrl,
-      children: children,
+      title: title,
+      description: description,
+      slug: "tttttt",
+      status: true,
     };
+
+    console.log(categoryData)
 
     if (id) {
       CategoryServices.updateCategory(id, categoryData)
@@ -39,12 +45,10 @@ const useCategorySubmit = (id) => {
         .catch((err) => notifyError(err.message));
       closeDrawer();
     } else {
-      CategoryServices.addCategory(categoryData)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
+      createCategory({variables:{...categoryData}}).then((res) => {
+        setIsUpdate(true);
+        notifySuccess(res.message);
+      }).catch((err)=> notifyError(err.message))
       closeDrawer();
     }
   };

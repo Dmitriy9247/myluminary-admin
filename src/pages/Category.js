@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_CATEGORIES } from '../graphql/query';
 import {
@@ -27,8 +27,8 @@ import { CREATE_CATEGORY } from '../graphql/mutation';
 
 const Category = () => {
   const [createCategory] = useMutation(CREATE_CATEGORY)
-  const { toggleDrawer } = useContext(SidebarContext);
-  const { data, loading} = useQuery(GET_CATEGORIES)
+  const { toggleDrawer, isUpdate } = useContext(SidebarContext);
+  const { data, loading, refetch} = useQuery(GET_CATEGORIES)
   const {
     categoryRef,
     setFilter,
@@ -39,21 +39,9 @@ const Category = () => {
     serviceData,
     handleSubmitCategory,
   } = useFilter(data?.categories);
-
-  async function handleSubmit(event) {
-    event.preventDefault()
-    try{
-      await createCategory({variables:{
-        title: "asdfasdf",
-        slug: "adfasdfasdf",
-        description: "asdfadsfasdf",
-        status: false
-      }})
-    }catch (error){
-      console.log(error)
-    }
-  }
-
+  useEffect(()=>{
+    refetch()
+  },[isUpdate])
   return (
     <>
       <PageTitle>Category</PageTitle>
@@ -87,7 +75,7 @@ const Category = () => {
             <div className="w-full md:w-56 lg:w-56 xl:w-56">
               <Button
                 type="button"
-                onClick={handleSubmit}
+                onClick={toggleDrawer}
                 className="w-full rounded-md h-12"
               >
                 <span className="mr-3">

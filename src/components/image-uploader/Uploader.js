@@ -42,7 +42,10 @@ const Uploader = ({ setImageUrl, imageUrl }) => {
           .then((res) => {
             setImageUrl(res.data.secure_url);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            setImageUrl(URL.createObjectURL(file));
+            console.log(err)
+          });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

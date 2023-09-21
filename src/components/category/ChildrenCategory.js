@@ -15,7 +15,6 @@ const ChildrenCategory = ({ value }) => {
 
   useEffect(() => {
     if (value) {
-      console.log(data)
       const result = data?.categories.filter((parent) =>
         parent.parent.toLowerCase().includes(value.toLowerCase())
       );
