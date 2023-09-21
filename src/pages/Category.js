@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_CATEGORIES } from '../graphql/query';
 import {
   Table,
@@ -14,21 +14,20 @@ import {
   Pagination,
 } from '@windmill/react-ui';
 import { FiPlus } from 'react-icons/fi';
-import useAsync from '../hooks/useAsync';
 import useFilter from '../hooks/useFilter';
 import NotFound from '../components/table/NotFound';
 import Loading from '../components/preloader/Loading';
 import { SidebarContext } from '../context/SidebarContext';
 import PageTitle from '../components/Typography/PageTitle';
-import CategoryServices from '../services/CategoryServices';
 import CategoryTable from '../components/category/CategoryTable';
 import SelectCategory from '../components/form/SelectCategory';
 import MainDrawer from '../components/drawer/MainDrawer';
 import CategoryDrawer from '../components/drawer/CategoryDrawer';
+import { CREATE_CATEGORY } from '../graphql/mutation';
 
 const Category = () => {
+  const [createCategory] = useMutation(CREATE_CATEGORY)
   const { toggleDrawer } = useContext(SidebarContext);
-  // const { data, loading } = useAsync(CategoryServices.getAllCategory);
   const { data, loading} = useQuery(GET_CATEGORIES)
   const {
     categoryRef,
@@ -40,6 +39,20 @@ const Category = () => {
     serviceData,
     handleSubmitCategory,
   } = useFilter(data?.categories);
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    try{
+      await createCategory({variables:{
+        title: "asdfasdf",
+        slug: "adfasdfasdf",
+        description: "asdfadsfasdf",
+        status: false
+      }})
+    }catch (error){
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -74,7 +87,7 @@ const Category = () => {
             <div className="w-full md:w-56 lg:w-56 xl:w-56">
               <Button
                 type="button"
-                onClick={toggleDrawer}
+                onClick={handleSubmit}
                 className="w-full rounded-md h-12"
               >
                 <span className="mr-3">

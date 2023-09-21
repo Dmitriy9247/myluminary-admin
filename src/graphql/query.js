@@ -1,8 +1,9 @@
 
 import { gql } from "@apollo/client"
+
 export const GET_CATEGORIES = gql`
-query Categories {
-    categories {
+  query Categories {
+      categories {
         _id
         title
         slug
@@ -15,8 +16,8 @@ query Categories {
             _id
             title
         }
-    }
- }
+      }
+  }
 `
 
 export const GET_PRODUCTS = gql`
