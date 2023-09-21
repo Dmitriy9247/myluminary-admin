@@ -40,19 +40,19 @@ const ProductTable = ({ products }) => {
                 <Avatar
                   className="hidden p-1 mr-2 md:block bg-gray-50 shadow-none"
                   src={product.image}
-                  alt={product.title}
+                  // alt={product.name}
                 />
                 <div>
-                  <h2 className="text-sm font-medium">{product.title}</h2>
+                  <h2 className="text-sm font-medium">{product.name}</h2>
                 </div>
               </div>
             </TableCell>
             <TableCell>
-              <span className="text-sm">{product.parent}</span>
+              <span className="text-sm">{product.categories[0].title}</span>
             </TableCell>
 
             <TableCell>
-              <span className="text-sm font-semibold">${product.price}</span>
+              <span className="text-sm font-semibold">${`${product.price[0]} - ${product.price[1]}`}</span>
             </TableCell>
 
             <TableCell>

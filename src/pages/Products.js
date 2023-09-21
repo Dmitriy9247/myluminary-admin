@@ -14,7 +14,8 @@ import {
 } from '@windmill/react-ui';
 import { FiPlus } from 'react-icons/fi';
 import { CSVReader, CSVDownloader } from 'react-papaparse';
-
+import { GET_PRODUCTS } from '../graphql/query';
+import { useQuery } from '@apollo/client';
 import useAsync from '../hooks/useAsync';
 import useFilter from '../hooks/useFilter';
 import productData from '../utils/products';
@@ -43,16 +44,17 @@ const Products = () => {
     limitData,
   } = useContext(SidebarContext);
 
-  const { data, loading } = useAsync(() =>
-    ProductServices.getAllProducts({
-      page: currentPage,
-      limit: limitData,
-      category: category,
+  const {data, loading} = useQuery(GET_PRODUCTS)
+  // const { data, loading } = useAsync(() =>
+  //   ProductServices.getAllProducts({
+  //     page: currentPage,
+  //     limit: limitData,
+  //     category: category,
 
-      title: searchText,
-      price: sortedField,
-    })
-  );
+  //     title: searchText,
+  //     price: sortedField,
+  //   })
+  // );
 
   const { serviceData, handleOnDrop, handleUploadProducts } = useFilter(
     data?.products

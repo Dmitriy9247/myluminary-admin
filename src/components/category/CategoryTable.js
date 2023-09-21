@@ -28,7 +28,7 @@ const CategoryTable = ({ categories }) => {
               <Avatar
                 className="hidden mr-3 md:block bg-gray-50 p-1"
                 src={item.icon}
-                alt={item.title}
+                // alt={item.title}
               />
             </TableCell>
             <TableCell className="text-sm">{item.title}</TableCell>

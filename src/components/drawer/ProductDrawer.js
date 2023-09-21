@@ -150,7 +150,7 @@ const ProductDrawer = ({ id }) => {
                   <option value="" defaultValue hidden>
                     Select child category
                   </option>
-                  <ChildrenCategory value={watch('parent')} />
+                  {/* <ChildrenCategory value={watch('parent')} /> */}
                 </Select>
                 <Error errorName={errors.children} />
               </div>

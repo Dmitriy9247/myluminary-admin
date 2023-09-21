@@ -5,7 +5,7 @@ import { GET_CATEGORIES } from '../../graphql/query';
 
 
 const ParentCategory = () => {
-  const { data, loading } = useQuery(GET_CATEGORIES);
+  const { data } = useQuery(GET_CATEGORIES);
 
   return (
     <>
