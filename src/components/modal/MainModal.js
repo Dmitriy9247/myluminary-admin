@@ -11,11 +11,15 @@ import CategoryServices from '../../services/CategoryServices';
 import { SidebarContext } from '../../context/SidebarContext';
 import { notifySuccess, notifyError } from '../../utils/toast';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
+import { useMutation } from '@apollo/client';
+import { DELETE_CATEGORY } from '../../graphql/mutation';
+import productData from '../../utils/products';
 
 const MainModal = ({ id, title }) => {
   const { isModalOpen, closeModal, setIsUpdate } = useContext(SidebarContext);
   const { setServiceId } = useToggleDrawer();
   const location = useLocation();
+  const [deleteCategory] = useMutation(DELETE_CATEGORY)
 
   const handleDelete = () => {
     if (location.pathname === '/products') {
@@ -30,12 +34,10 @@ const MainModal = ({ id, title }) => {
     }
 
     if (location.pathname === '/category') {
-      CategoryServices.deleteCategory(id)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
+      deleteCategory({variables: {id}}).then((res) => {
+        setIsUpdate(true);
+        notifySuccess(res.message);
+      }).catch((err) => notifyError(err.message));
       closeModal();
       setServiceId();
     }

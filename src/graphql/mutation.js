@@ -8,4 +8,12 @@ export const CREATE_CATEGORY = gql`
         slug
     }
  }
-`
+`;
+
+export const DELETE_CATEGORY = gql`
+ mutation DeleteCategory($id: ID!){
+    deleteCategory(_id:$id) {
+        _id
+    }
+ }
+`;
