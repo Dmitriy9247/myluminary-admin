@@ -17,6 +17,7 @@ const useFilter = (data) => {
   const [searchCoupon, setSearchCoupon] = useState('');
   const [searchOrder, setSearchOrder] = useState('');
   const [categoryType, setCategoryType] = useState('');
+  const [brandTitle, setBrandTitle] = useState('');
   const [pending, setPending] = useState([]);
   const [processing, setProcessing] = useState([]);
   const [delivered, setDelivered] = useState([]);
@@ -34,6 +35,7 @@ const useFilter = (data) => {
   const couponRef = useRef('');
   const orderRef = useRef('');
   const categoryRef = useRef('');
+  const brandRef = useRef('');
   dayjs.extend(isBetween);
   dayjs.extend(isToday);
   const location = useLocation();
@@ -89,7 +91,6 @@ const useFilter = (data) => {
     //products filtering
 
     if (filter) {
-      console.log(filter)
       services = services.filter((item) => item.parent && item.parent._id === filter);
     }
 
@@ -109,6 +110,13 @@ const useFilter = (data) => {
     if (categoryType) {
       services = services.filter((search) =>
         search.title.toLowerCase().includes(categoryType.toLowerCase())
+      );
+    }
+
+    //brand searching
+    if (brandTitle) {
+      services = services.filter((search) =>
+        search.title.toLowerCase().includes(brandTitle.toLowerCase())
       );
     }
 
@@ -163,6 +171,7 @@ const useFilter = (data) => {
     searchCoupon,
     searchOrder,
     categoryType,
+    brandTitle,
     status,
     role,
     time,
@@ -216,6 +225,11 @@ const useFilter = (data) => {
     setCategoryType(categoryRef.current.value);
   };
 
+  const handleSubmitBrand = (e) => {
+    e.preventDefault();
+    setBrandTitle(brandRef.current.value);
+  }
+
   //table form submit function for search end
 
   //handle submit multiple product data with csv format
@@ -243,6 +257,7 @@ const useFilter = (data) => {
     searchRef,
     couponRef,
     orderRef,
+    brandRef,
     categoryRef,
     pending,
     processing,
@@ -265,6 +280,7 @@ const useFilter = (data) => {
     handleSubmitCoupon,
     handleSubmitOrder,
     handleSubmitCategory,
+    handleSubmitBrand,
     handleOnDrop,
     handleUploadProducts,
   };
