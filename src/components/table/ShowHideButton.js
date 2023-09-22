@@ -6,10 +6,13 @@ import { notifySuccess, notifyError } from '../../utils/toast';
 import ProductServices from '../../services/ProductServices';
 import CategoryServices from '../../services/CategoryServices';
 import { SidebarContext } from '../../context/SidebarContext';
+import { useMutation } from '@apollo/client';
+import { UPDATE_CATEGORY } from '../../graphql/mutation';
 
 const ShowHideButton = ({ id, status }) => {
   const location = useLocation();
   const { setIsUpdate } = useContext(SidebarContext);
+  const [updateCategory] = useMutation(UPDATE_CATEGORY);
 
   const handleChangeStatus = (id) => {
     let newStatus;
@@ -20,12 +23,22 @@ const ShowHideButton = ({ id, status }) => {
     }
 
     if (location.pathname === '/category') {
-      CategoryServices.updateStatus(id, { status: newStatus })
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
+      // CategoryServices.updateStatus(id, { status: newStatus })
+      //   .then((res) => {
+      //     setIsUpdate(true);
+      //     notifySuccess(res.message);
+      //   })
+      //   .catch((err) => notifyError(err.message));
+      const updatedData = {
+        status: newStatus
+      }
+      updateCategory({variables: {
+        id:id,
+        ...updatedData
+      }}).then((res)=>{
+        setIsUpdate(true);
+        notifySuccess(res.message);
+      }).catch((err) => notifyError(err.message))
     }
 
     if (location.pathname === '/products') {

@@ -27,7 +27,7 @@ import { CREATE_CATEGORY } from '../graphql/mutation';
 
 const Category = () => {
   const [createCategory] = useMutation(CREATE_CATEGORY)
-  const { toggleDrawer, isUpdate } = useContext(SidebarContext);
+  const { toggleDrawer, isUpdate, setIsUpdate } = useContext(SidebarContext);
   const { data, loading, refetch} = useQuery(GET_CATEGORIES)
   const {
     categoryRef,
@@ -40,7 +40,10 @@ const Category = () => {
     handleSubmitCategory,
   } = useFilter(data?.categories);
   useEffect(()=>{
-    refetch()
+    if (isUpdate){
+      refetch()
+      setIsUpdate(false)
+    }
   },[isUpdate])
   return (
     <>
