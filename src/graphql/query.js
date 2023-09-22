@@ -41,6 +41,23 @@ export const GET_CATEGORIES = gql`
   }
 `
 
+
+export const GET_BRAND = gql`
+query Brand($id:ID!) {
+  brand(_id:$id) {
+    _id
+    title
+    slug
+    description
+    url
+    picture {
+      _id
+      url
+    }
+  }
+}
+`
+
 export const GET_BRANDS = gql`
   query Brands {
       brands {

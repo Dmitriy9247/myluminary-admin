@@ -50,7 +50,7 @@ const BrandDrawer = ({ id }) => {
                   label="Brand title"
                   name="title"
                   type="text"
-                  placeholder="Category title"
+                  placeholder="Brand title"
                 />
                 <Error errorName={errors.title} />
               </div>

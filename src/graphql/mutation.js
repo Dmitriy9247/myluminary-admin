@@ -42,6 +42,18 @@ mutation CreateBrand($title: String!, $description:String, $picture:ID, $slug: S
 }
 `
 
+export const UPDATE_BRAND = gql`
+mutation UpdateBrand($id:ID!, $title: String, $description:String, $picture:ID, $slug: String, $url: String){
+    updateBrand(_id:$id, input: {title:$title, description:$description, picture:$picture, url:$url, slug:$slug}){
+        _id,
+        title,
+        slug,
+        description,
+        url,
+    }
+}
+`
+
 export const DELETE_BRAND = gql`
  mutation DeleteBrand($id: ID!){
     deleteBrand(_id:$id) {

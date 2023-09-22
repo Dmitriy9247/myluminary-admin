@@ -2,17 +2,16 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
-import { CREATE_BRAND, CREATE_CATEGORY, UPDATE_CATEGORY } from '../graphql/mutation';
-import { GET_CATEGORY } from '../graphql/query';
+import { CREATE_BRAND, UPDATE_BRAND  } from '../graphql/mutation';
+import { GET_BRAND, GET_CATEGORY } from '../graphql/query';
 import { notifyError, notifySuccess } from '../utils/toast';
 
 const useBrandSubmit = (id) => {
   const [imageUrl, setImageUrl] = useState('');
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
-  const [createCategory] = useMutation(CREATE_CATEGORY)
-  const [updateCategory] = useMutation(UPDATE_CATEGORY)
   const [createBrand] = useMutation(CREATE_BRAND)
-  const [getCategory] = useLazyQuery(GET_CATEGORY)
+  const [updateBrand] = useMutation(UPDATE_BRAND)
+  const [getBrand] = useLazyQuery(GET_BRAND)
 
   const {
     register,
@@ -35,14 +34,14 @@ const useBrandSubmit = (id) => {
     };
 
     if (id) {
-    //   updateCategory({variables: {
-    //     id, 
-    //     ...categoryData
-    //   }}).then((res) => {
-    //     setIsUpdate(true);
-    //     notifySuccess("Successfully Updated!");
-    //   }).catch((err) => notifyError(err.message))
-    //   closeDrawer();
+      updateBrand({variables: {
+        id, 
+        ...brandData
+      }}).then((res) => {
+        setIsUpdate(true);
+        notifySuccess("Successfully Updated!");
+      }).catch((err) => notifyError(err.message))
+      closeDrawer();
     } else {
       createBrand({variables:{...brandData}}).then((res) => {
         setIsUpdate(true);
@@ -57,19 +56,20 @@ const useBrandSubmit = (id) => {
       setValue('slug');
       setValue("title");
       setValue('description');
-      setValue('parentId');
+      setValue('url');
       setImageUrl('');
       clearErrors('slug');
       clearErrors('title');
       clearErrors('description');
+      clearErrors('url');
       return;
     }
     if (id) {
-      getCategory({ variables: {id}}).then((res) =>{
-        setValue('slug', res.data.category.slug)
-        setValue('title', res.data.category.title)
-        setValue('description', res.data.category.description)
-        setValue('parentId', res.data.category.parent?._id)
+        getBrand({ variables: {id}}).then((res) =>{
+        setValue('slug', res.data.brand.slug)
+        setValue('title', res.data.brand.title)
+        setValue('description', res.data.brand.description)
+        setValue('url',res.data.brand.url)
       }).catch((err)=>{
         notifyError(err.message)
       })

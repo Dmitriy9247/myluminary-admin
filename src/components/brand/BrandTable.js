@@ -1,7 +1,9 @@
 import { Avatar, TableBody, TableCell, TableRow } from "@windmill/react-ui"
 import useToggleDrawer from "../../hooks/useToggleDrawer";
+import MainDrawer from "../drawer/MainDrawer";
 import MainModal from "../modal/MainModal"
 import EditDeleteButton from "../table/EditDeleteButton";
+import BrandDrawer from "./BrandDrawer";
 
 const BrandTable = ({brands}) => {
     const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
@@ -9,6 +11,9 @@ const BrandTable = ({brands}) => {
     return (
         <>
             <MainModal id={serviceId} title={title} />
+            <MainDrawer>
+                <BrandDrawer id={serviceId} />
+            </MainDrawer>
             <TableBody>
                 {brands?.map((item) => (
                     <TableRow key={item._id}>
