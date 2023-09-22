@@ -41,6 +41,21 @@ export const GET_CATEGORIES = gql`
   }
 `
 
+export const GET_BRANDS = gql`
+  query Brands {
+      brands {
+        _id
+        title
+        slug
+        url
+        picture {
+          _id
+          url
+        }
+      }
+  }
+`
+
 export const GET_PRODUCTS = gql`
   query Products {
     products {

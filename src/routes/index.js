@@ -15,6 +15,7 @@ const Coupons = lazy(() => import('../pages/Coupons'));
 const Page404 = lazy(() => import('../pages/404'));
 const ComingSoon = lazy(() => import('../pages/ComingSoon'));
 const EditProfile = lazy(() => import('../pages/EditProfile'));
+const Brand = lazy(() => import('../pages/Brand') );
 
 /*
 //  * ⚠ These are internal routes!
@@ -43,6 +44,10 @@ const routes = [
   {
     path: '/category',
     component: Category,
+  },
+  {
+    path: '/brands',
+    component: Brand,
   },
   {
     path: '/customers',
