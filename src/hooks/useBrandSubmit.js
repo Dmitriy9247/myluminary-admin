@@ -2,7 +2,7 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
-import { CREATE_CATEGORY, UPDATE_CATEGORY } from '../graphql/mutation';
+import { CREATE_BRAND, CREATE_CATEGORY, UPDATE_CATEGORY } from '../graphql/mutation';
 import { GET_CATEGORY } from '../graphql/query';
 import { notifyError, notifySuccess } from '../utils/toast';
 
@@ -11,6 +11,7 @@ const useBrandSubmit = (id) => {
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
   const [createCategory] = useMutation(CREATE_CATEGORY)
   const [updateCategory] = useMutation(UPDATE_CATEGORY)
+  const [createBrand] = useMutation(CREATE_BRAND)
   const [getCategory] = useLazyQuery(GET_CATEGORY)
 
   const {
@@ -21,29 +22,29 @@ const useBrandSubmit = (id) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ parentId, title, description, url }) => {
+  const onSubmit = ({ picture, title, description, url }) => {
     if (!imageUrl) {
-      notifyError('Icon is required!');
+      notifyError('Picture is required!');
       return;
     }
-    const categoryData = {
+    const brandData = {
       title: title,
       description: description,
-      slug: parentId ?? "test-slug",
+      slug: "test-slug",
       url: url,
     };
 
     if (id) {
-      updateCategory({variables: {
-        id, 
-        ...categoryData
-      }}).then((res) => {
-        setIsUpdate(true);
-        notifySuccess("Successfully Updated!");
-      }).catch((err) => notifyError(err.message))
-      closeDrawer();
+    //   updateCategory({variables: {
+    //     id, 
+    //     ...categoryData
+    //   }}).then((res) => {
+    //     setIsUpdate(true);
+    //     notifySuccess("Successfully Updated!");
+    //   }).catch((err) => notifyError(err.message))
+    //   closeDrawer();
     } else {
-      createCategory({variables:{...categoryData}}).then((res) => {
+      createBrand({variables:{...brandData}}).then((res) => {
         setIsUpdate(true);
         notifySuccess("Successfully Created!");
       }).catch((err)=> notifyError(err.message))

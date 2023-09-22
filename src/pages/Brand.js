@@ -7,13 +7,13 @@ import NotFound from "../components/table/NotFound"
 import { Button, Card, CardBody, Input, Pagination, Table, TableCell, TableContainer, TableFooter, TableHeader } from "@windmill/react-ui"
 import useFilter from "../hooks/useFilter"
 import BrandTable from "../components/brand/BrandTable"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { SidebarContext } from "../context/SidebarContext"
 import BrandDrawer from "../components/brand/BrandDrawer"
 import { FiPlus } from "react-icons/fi"
 
 const Brand = () => {
-    const {data, loading} = useQuery(GET_BRANDS)
+    const {data, loading, refetch} = useQuery(GET_BRANDS)
     const {toggleDrawer, isUpdate, setIsUpdate} = useContext(SidebarContext)
     const {
         brandRef,
@@ -24,6 +24,13 @@ const Brand = () => {
         serviceData,
         handleSubmitBrand,
       } = useFilter(data?.brands);
+
+      useEffect(()=>{
+        if (isUpdate){
+          refetch()
+          setIsUpdate(false)
+        }
+      },[isUpdate])
 
     return (
     <>

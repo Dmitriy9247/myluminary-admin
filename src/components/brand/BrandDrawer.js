@@ -6,7 +6,7 @@ import InputArea from '../form/InputArea';
 import LabelArea from '../form/LabelArea';
 import DrawerButton from '../form/DrawerButton';
 import Uploader from '../image-uploader/Uploader';
-import useCategorySubmit from '../../hooks/useBrandSubmit';
+import useBrandSubmit from '../../hooks/useBrandSubmit';
 
 const BrandDrawer = ({ id }) => {
   const {
@@ -16,7 +16,7 @@ const BrandDrawer = ({ id }) => {
     errors,
     imageUrl,
     setImageUrl,
-  } = useCategorySubmit(id);
+  } = useBrandSubmit(id);
 
   return (
     <>

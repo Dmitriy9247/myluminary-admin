@@ -12,7 +12,7 @@ import { SidebarContext } from '../../context/SidebarContext';
 import { notifySuccess, notifyError } from '../../utils/toast';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
 import { useMutation } from '@apollo/client';
-import { DELETE_CATEGORY } from '../../graphql/mutation';
+import { DELETE_BRAND, DELETE_CATEGORY } from '../../graphql/mutation';
 import productData from '../../utils/products';
 
 const MainModal = ({ id, title }) => {
@@ -20,6 +20,7 @@ const MainModal = ({ id, title }) => {
   const { setServiceId } = useToggleDrawer();
   const location = useLocation();
   const [deleteCategory] = useMutation(DELETE_CATEGORY)
+  const [deleteBrand] = useMutation(DELETE_BRAND)
 
   const handleDelete = () => {
     if (location.pathname === '/products') {
@@ -32,11 +33,19 @@ const MainModal = ({ id, title }) => {
       closeModal();
       setServiceId();
     }
+    if (location.pathname === '/brands') {
+      deleteBrand({variables: {id}}).then((res) => {
+        setIsUpdate(true);
+        notifySuccess("Successfully Deleted!")
+      }).catch((err) => notifyError(err.message))
+      closeModal();
+      setServiceId();
+    }
 
     if (location.pathname === '/category') {
       deleteCategory({variables: {id}}).then((res) => {
         setIsUpdate(true);
-        notifySuccess(res.message);
+        notifySuccess("Successfully Deleted!");
       }).catch((err) => notifyError(err.message));
       closeModal();
       setServiceId();

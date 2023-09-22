@@ -18,7 +18,6 @@ export const DELETE_CATEGORY = gql`
  }
 `;
 
-
 export const UPDATE_CATEGORY = gql`
 mutation UpdateCategory($id:ID!, $title: String, $description:String, $parentId:ID, $pictureId:ID, $slug: String, $status:Boolean){
     updateCategory(_id:$id, input: {title:$title, description:$description, parent:$parentId, picture:$pictureId, slug:$slug, status:$status}){
@@ -27,6 +26,26 @@ mutation UpdateCategory($id:ID!, $title: String, $description:String, $parentId:
         slug,
         status,
         slug
+    }
+ }
+`;
+
+export const CREATE_BRAND = gql`
+mutation CreateBrand($title: String!, $description:String, $picture:ID, $slug: String, $url: String!){
+    createBrand(input: {title:$title, description:$description, picture:$picture, url:$url, slug:$slug}){
+        _id,
+        title,
+        slug,
+        description,
+        url,
+    }
+}
+`
+
+export const DELETE_BRAND = gql`
+ mutation DeleteBrand($id: ID!){
+    deleteBrand(_id:$id) {
+        _id
     }
  }
 `;
