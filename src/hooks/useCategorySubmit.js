@@ -1,8 +1,9 @@
-import { useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
-import { CREATE_CATEGORY } from '../graphql/mutation';
+import { CREATE_CATEGORY, UPDATE_CATEGORY } from '../graphql/mutation';
+import { GET_CATEGORY } from '../graphql/query';
 import CategoryServices from '../services/CategoryServices';
 import { notifyError, notifySuccess } from '../utils/toast';
 
@@ -11,6 +12,8 @@ const useCategorySubmit = (id) => {
   const [children, setChildren] = useState([]);
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
   const [createCategory] = useMutation(CREATE_CATEGORY)
+  const [updateCategory] = useMutation(UPDATE_CATEGORY)
+  const [getCategory] = useLazyQuery(GET_CATEGORY)
 
   const {
     register,
@@ -27,27 +30,25 @@ const useCategorySubmit = (id) => {
     }
     const categoryData = {
       parentId: parentId,
-      // slug: slug,
       title: title,
       description: description,
-      slug: "tttttt",
+      slug: parentId ?? "test-slug",
       status: true,
     };
 
-    console.log(categoryData)
-
     if (id) {
-      CategoryServices.updateCategory(id, categoryData)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
+      updateCategory({variables: {
+        id, 
+        ...categoryData
+      }}).then((res) => {
+        setIsUpdate(true);
+        notifySuccess("Successfully Updated!");
+      }).catch((err) => notifyError(err.message))
       closeDrawer();
     } else {
       createCategory({variables:{...categoryData}}).then((res) => {
         setIsUpdate(true);
-        notifySuccess(res.message);
+        notifySuccess("Successfully Created!");
       }).catch((err)=> notifyError(err.message))
       closeDrawer();
     }
@@ -55,33 +56,26 @@ const useCategorySubmit = (id) => {
 
   useEffect(() => {
     if (!isDrawerOpen) {
-      setValue('parent');
-      // setValue("slug");
-      setValue('children');
-      setValue('type');
+      setValue('slug');
+      setValue("title");
+      setValue('description');
+      setValue('parentId');
       setImageUrl('');
       setChildren([]);
-      clearErrors('parent');
-      // setValue("slug");
-      clearErrors('children');
-      clearErrors('type');
+      clearErrors('slug');
+      clearErrors('title');
+      clearErrors('description');
       return;
     }
     if (id) {
-      CategoryServices.getCategoryById(id)
-        .then((res) => {
-          if (res) {
-            setValue('parent', res.parent);
-            // setValue("slug", res.slug);
-            setChildren(res.children);
-            setValue('type', res.type);
-            setValue('icon', res.icon);
-            setImageUrl(res.icon);
-          }
-        })
-        .catch((err) => {
-          notifyError('There is a server error!');
-        });
+      getCategory({ variables: {id}}).then((res) =>{
+        setValue('slug', res.data.category.slug)
+        setValue('title', res.data.category.title)
+        setValue('description', res.data.category.description)
+        setValue('parentId', res.data.category.parent?._id)
+      }).catch((err)=>{
+        notifyError(err.message)
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, setValue, isDrawerOpen]);

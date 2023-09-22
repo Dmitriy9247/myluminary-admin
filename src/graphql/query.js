@@ -1,6 +1,23 @@
 
 import { gql } from "@apollo/client"
 
+export const GET_CATEGORY = gql`
+query Category($id:ID!) {
+  category(_id:$id) {
+    _id
+    title
+    slug
+    description
+    picture {
+      _id
+      url
+    }
+    parent {
+      _id
+    }
+  }
+}
+`
 export const GET_CATEGORIES = gql`
   query Categories {
       categories {
@@ -8,6 +25,10 @@ export const GET_CATEGORIES = gql`
         title
         slug
         status
+        picture {
+          _id
+          url
+        }
         parent {
             _id
             title
