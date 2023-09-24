@@ -74,38 +74,30 @@ export const GET_BRANDS = gql`
 `
 
 export const GET_PRODUCTS = gql`
-  query Products {
-    products {
-      _id
-      name
-      price
-      slug
-      ratings
-      reviews
-      stock
-      short_description
-      is_featured
-      is_new
-      until
-      discount
-      variants {
-        price
-        sale_price
-      }
-      pictures {
-        url
-        width
-        height
-      }
-      small_pictures {
-        url
-        width
-        height
-      }
-      categories {
-        title
+  query GetProducts($name: String, $category:ID, $limit: Int, $skip: Int) {
+    products(input: { filter: {name: $name, category:$category}, limit: $limit, skip: $skip }) {
+      products {
+        _id
+        name
         slug
+        long_description
+        short_description
+        ratings
+        reviews
+        pictures {
+            _id
+        }
+        brands {
+            _id
+        }
+        category {
+            _id
+        }
+        variants {
+            _id
+        }
       }
+      totalProducts
     }
   }
 `

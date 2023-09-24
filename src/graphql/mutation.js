@@ -40,7 +40,7 @@ mutation CreateBrand($title: String!, $description:String, $picture:ID, $slug: S
         url,
     }
 }
-`
+`;
 
 export const UPDATE_BRAND = gql`
 mutation UpdateBrand($id:ID!, $title: String, $description:String, $picture:ID, $slug: String, $url: String){
@@ -52,12 +52,23 @@ mutation UpdateBrand($id:ID!, $title: String, $description:String, $picture:ID, 
         url,
     }
 }
-`
+`;
 
 export const DELETE_BRAND = gql`
  mutation DeleteBrand($id: ID!){
     deleteBrand(_id:$id) {
         _id
+    }
+ }
+`;
+
+export const CREATE_PRODUCT = gql`
+mutation CreateProduct($name: String!, $long_description:String, $short_description:String, $category:ID!, $slug: String!, $brands:[ID], $pictures: [ID]){
+    createProduct(input: {name:$name, long_description:$long_description, short_description:$short_description, category: $category, slug:$slug, brands:$brands, pictures:$pictures}){
+        _id,
+        name,
+        slug,
+        short_description,
     }
  }
 `;
