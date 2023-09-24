@@ -83,3 +83,9 @@ mutation UpdateProduct($id:ID!, $name: String, $long_description:String, $short_
     }
  }
 `;
+
+export const DELETE_PRODUCT = gql`
+mutation DeleteProduct($id: ID!){
+    deleteProduct(_id:$id)
+ }
+`;
