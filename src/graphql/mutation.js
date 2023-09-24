@@ -72,3 +72,14 @@ mutation CreateProduct($name: String!, $long_description:String, $short_descript
     }
  }
 `;
+
+export const UPDATE_PRODUCT = gql`
+mutation UpdateProduct($id:ID!, $name: String, $long_description:String, $short_description:String, $category:ID, $slug: String, $brands:[ID], $pictures: [ID]){
+    updateProduct(_id:$id, input: { name:$name, long_description:$long_description, short_description:$short_description, category: $category, slug:$slug, brands:$brands, pictures:$pictures }){
+        _id,
+        name,
+        slug,
+        short_description,
+    }
+ }
+`;
