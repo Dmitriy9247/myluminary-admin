@@ -1,17 +1,13 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { Textarea, Select } from '@windmill/react-ui';
-import ReactTagInput from '@pathofdev/react-tag-input';
 
 import Title from '../form/Title';
 import Error from '../form/Error';
 import LabelArea from '../form/LabelArea';
 import InputArea from '../form/InputArea';
-import InputValue from '../form/InputValue';
-import SelectOption from '../form/SelectOption';
 import DrawerButton from '../form/DrawerButton';
 import Uploader from '../image-uploader/Uploader';
-import ChildrenCategory from '../category/ChildrenCategory';
 import ParentCategory from '../category/ParentCategory';
 import useProductSubmit from '../../hooks/useProductSubmit';
 

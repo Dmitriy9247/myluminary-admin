@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
 import { CREATE_CATEGORY, UPDATE_CATEGORY } from '../graphql/mutation';
 import { GET_CATEGORY } from '../graphql/query';
-import CategoryServices from '../services/CategoryServices';
 import { notifyError, notifySuccess } from '../utils/toast';
 
 const useCategorySubmit = (id) => {

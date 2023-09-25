@@ -1,8 +1,9 @@
-import { useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
-import { CREATE_PRODUCT } from '../graphql/mutation';
+import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../graphql/mutation';
+import { GET_PRODUCT } from '../graphql/query';
 import ProductServices from '../services/ProductServices';
 import { notifyError, notifySuccess } from '../utils/toast';
 
@@ -12,6 +13,8 @@ const useProductSubmit = (id) => {
   const [tag, setTag] = useState([]);
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
   const [createProduct] = useMutation(CREATE_PRODUCT);
+  const [updateProduct] = useMutation(UPDATE_PRODUCT);
+  const [getProduct] = useLazyQuery(GET_PRODUCT);
 
   const {
     register,
@@ -46,20 +49,14 @@ const useProductSubmit = (id) => {
     };
 
     if (id) {
-      ProductServices.updateProduct(id, productData)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
+      updateProduct({variables:{ id,
+        ...productData
+      }}).then((res) => {
+        setIsUpdate(true)
+        notifySuccess("Successfully Updated!")
+      }).catch((err) => notifyError(err.message));
       closeDrawer();
     } else {
-      ProductServices.addProduct(productData)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
       createProduct({variables:{
         ...productData
       }}).then((res) => {
@@ -72,53 +69,31 @@ const useProductSubmit = (id) => {
 
   useEffect(() => {
     if (!isDrawerOpen) {
-      setValue('sku');
-      setValue('title');
+      setValue('name');
       setValue('slug');
-      setValue('description');
-      setValue('parent');
-      setValue('children');
-      setValue('type');
-      setValue('unit');
-      setValue('quantity');
-      setValue('originalPrice');
-      setValue('salePrice');
+      setValue('short_description');
+      setValue('long_description');
+      setValue('category');
       setImageUrl('');
-      setChildren('');
       setTag([]);
-      clearErrors('sku');
-      clearErrors('title');
-      clearErrors('slug');
-      clearErrors('description');
-      clearErrors('parent');
-      clearErrors('children');
-      clearErrors('type');
-      clearErrors('unit');
-      clearErrors('quantity');
-      clearErrors('originalPrice');
-      clearErrors('salePrice');
-      clearErrors('tax1');
-      clearErrors('tax2');
+      setValue('name');
+      setValue('slug');
+      setValue('short_description');
+      setValue('long_description');
+      setValue('category');
       return;
     }
 
     if (id) {
-      ProductServices.getProductById(id)
+      getProduct({variables: {id}})
         .then((res) => {
           if (res) {
-            setValue('sku', res.sku);
-            setValue('title', res.title);
-            setValue('slug', res.slug);
-            setValue('description', res.description);
-            setValue('parent', res.parent);
-            setValue('children', res.children);
-            setValue('type', res.type);
-            setValue('unit', res.unit);
-            setValue('quantity', res.quantity);
-            setValue('originalPrice', res.originalPrice);
-            setValue('salePrice', res.price);
-            setTag(JSON.parse(res.tag));
-            setImageUrl(res.image);
+            const {data} = res
+            setValue('name', data.product.name);
+            setValue('slug', data.product.slug);
+            setValue('short_description', data.product.short_description);
+            setValue('long_description', data.product.long_description);
+            setValue('category', data.product.category._id);
           }
         })
         .catch((err) => {
