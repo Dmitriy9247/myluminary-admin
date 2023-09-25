@@ -9,7 +9,7 @@ const ParentCategory = () => {
 
   return (
     <>
-      {data?.categories.filter((item)=> item.children.length > 0).map((parent) => (
+      {data?.categories.map((parent) => (
         <option key={parent._id} value={parent._id}>
           {parent.title}
         </option>

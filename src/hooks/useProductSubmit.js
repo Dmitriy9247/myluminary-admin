@@ -1,6 +1,8 @@
+import { useMutation } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
+import { CREATE_PRODUCT } from '../graphql/mutation';
 import ProductServices from '../services/ProductServices';
 import { notifyError, notifySuccess } from '../utils/toast';
 
@@ -9,6 +11,7 @@ const useProductSubmit = (id) => {
   const [children, setChildren] = useState('');
   const [tag, setTag] = useState([]);
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
+  const [createProduct] = useMutation(CREATE_PRODUCT);
 
   const {
     register,
@@ -30,24 +33,16 @@ const useProductSubmit = (id) => {
     }
 
     const productData = {
-      sku: data.sku,
-      title: data.title,
+      name: data.name,
       slug: data.slug
         ? data.slug
-        : data.title.toLowerCase().replace('&', '').split(' ').join('-'),
-      description: data.description,
-      parent: data.parent,
-      children: data.children,
+        : data.name.toLowerCase().replace('&', '').split(' ').join('-'),
+      short_description: data.short_description,
+      long_description: data.long_description,
+      category: data.category,
       type: data.type,
-      unit: data.unit,
-      quantity: data.quantity,
-      originalPrice: data.originalPrice,
-      price: data.salePrice ? data.salePrice : data.originalPrice,
-      discount:
-        data.salePrice > 0 &&
-        ((data.originalPrice - data.salePrice) / data.originalPrice) * 100,
-      image: imageUrl,
-      tag: JSON.stringify(tag),
+      // image: imageUrl,
+      // tag: JSON.stringify(tag),
     };
 
     if (id) {
@@ -65,6 +60,12 @@ const useProductSubmit = (id) => {
           notifySuccess(res.message);
         })
         .catch((err) => notifyError(err.message));
+      createProduct({variables:{
+        ...productData
+      }}).then((res) => {
+        setIsUpdate(true)
+        notifySuccess("Successfully Added!");
+      }).catch((err) => notifyError(err.message));
       closeDrawer();
     }
   };

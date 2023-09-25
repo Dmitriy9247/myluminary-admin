@@ -44,21 +44,12 @@ const Products = () => {
     limitData,
   } = useContext(SidebarContext);
 
-  const {data, loading} = useQuery(GET_PRODUCTS)
-  // const { data, loading } = useAsync(() =>
-  //   ProductServices.getAllProducts({
-  //     page: currentPage,
-  //     limit: limitData,
-  //     category: category,
-
-  //     title: searchText,
-  //     price: sortedField,
-  //   })
-  // );
-
-  const { serviceData, handleOnDrop, handleUploadProducts } = useFilter(
-    data?.products
-  );
+  const {data, loading} = useQuery(GET_PRODUCTS, {variables: {
+    category: category,
+    name: searchText,
+    limit: limitData,
+    page: currentPage
+  }})
 
   return (
     <>
@@ -89,7 +80,7 @@ const Products = () => {
             <div className="flex-grow-0 md:flex-grow lg:flex-grow xl:flex-grow">
               <SelectCategory setCategory={setCategory} />
             </div>
-            <div className="flex-grow-0 md:flex-grow lg:flex-grow xl:flex-grow">
+            {/* <div className="flex-grow-0 md:flex-grow lg:flex-grow xl:flex-grow">
               <Select
                 onChange={(e) => setSortedField(e.target.value)}
                 className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 border-transparent focus:bg-white"
@@ -100,7 +91,7 @@ const Products = () => {
                 <option value="Low">Low to High</option>
                 <option value="High">High to Low</option>
               </Select>
-            </div>
+            </div> */}
             <div className="w-full md:w-56 lg:w-56 xl:w-56">
               <Button onClick={toggleDrawer} className="w-full rounded-md h-12">
                 <span className="mr-3">
@@ -113,101 +104,28 @@ const Products = () => {
         </CardBody>
       </Card>
 
-      <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 rounded-t-lg rounded-0">
-        <CardBody>
-          <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-3">
-            <div className="col-span-2">
-              <CSVReader
-                onDrop={handleOnDrop}
-                addRemoveButton
-                config={{
-                  header: true,
-                }}
-                style={{
-                  dropArea: {
-                    borderColor: 'green',
-                    borderRadius: 6,
-                    borderWidth: 1,
-                    height: '3em',
-                    padding: '0 0.2em',
-                  },
-                  dropAreaActive: {
-                    borderColor: 'green',
-                  },
-                  dropFile: {
-                    width: '100%',
-                    display: 'block',
-                    height: 'auto',
-                    background: 'none',
-                    borderRadius: 6,
-                    padding: '0.2em 0.2em',
-                  },
-                  fileSizeInfo: {
-                    color: '#fff',
-                    backgroundColor: '#000',
-                    borderRadius: 0,
-                    lineHeight: 1,
-                    fontSize: 12,
-                    marginBottom: '0.5em',
-                    padding: '0.3em 0.2em',
-                  },
-                  fileNameInfo: {
-                    color: '#757575',
-                    backgroundColor: 'transparent',
-                    borderRadius: 1,
-                    fontSize: 14,
-                    lineHeight: 1,
-                    padding: '0 0.4em',
-                  },
-                  removeButton: {
-                    color: 'red',
-                  },
-                  progressBar: {
-                    backgroundColor: 'green',
-                  },
-                }}
-              >
-                <span className="text-sm text-gray-500">Drop CSV file</span>
-              </CSVReader>
-            </div>
-            <div className="flex items-center">
-              <Button onClick={handleUploadProducts} layout="outline">
-                Upload
-              </Button>
-              <div className="w-full">
-                <CSVDownloader data={productData} filename={'products'}>
-                  <Button className="w-full h-12">Download</Button>
-                </CSVDownloader>
-              </div>
-            </div>
-          </div>
-        </CardBody>
-      </Card>
-
       {loading ? (
         <Loading loading={loading} />
-      ) : serviceData.length !== 0 ? (
+      ) : data?.products || data?.products.products.length !== 0 ? (
         <TableContainer className="mb-8 rounded-b-lg">
           <Table>
             <TableHeader>
               <tr>
                 <TableCell>SKU</TableCell>
                 <TableCell>Product name</TableCell>
+                <TableCell>Description</TableCell>
                 <TableCell>Category</TableCell>
                 <TableCell>Price</TableCell>
-                <TableCell>Stock</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Discount</TableCell>
                 <TableCell>Details</TableCell>
-                <TableCell className="text-center">Published</TableCell>
+                {/* <TableCell className="text-center">Published</TableCell> */}
                 <TableCell className="text-right">Actions</TableCell>
               </tr>
             </TableHeader>
-            <ProductTable products={data?.products} />
+            <ProductTable products={data?.products.products} />
           </Table>
           <TableFooter>
             <Pagination
-              totalResults={data?.totalDoc}
+              totalResults={data?.products.totalProducts}
               resultsPerPage={15}
               onChange={handleChangePage}
               label="Product Page Navigation"

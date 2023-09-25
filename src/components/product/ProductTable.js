@@ -13,7 +13,6 @@ import Tooltip from '../tooltip/Tooltip';
 import MainModal from '../modal/MainModal';
 import MainDrawer from '../drawer/MainDrawer';
 import ProductDrawer from '../drawer/ProductDrawer';
-import ShowHideButton from '../table/ShowHideButton';
 import EditDeleteButton from '../table/EditDeleteButton';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
 
@@ -40,7 +39,6 @@ const ProductTable = ({ products }) => {
                 <Avatar
                   className="hidden p-1 mr-2 md:block bg-gray-50 shadow-none"
                   src={product.image}
-                  // alt={product.name}
                 />
                 <div>
                   <h2 className="text-sm font-medium">{product.name}</h2>
@@ -48,31 +46,16 @@ const ProductTable = ({ products }) => {
               </div>
             </TableCell>
             <TableCell>
-              <span className="text-sm">{product.categories[0].title}</span>
+              <span className="text-xs">{product?.short_description}</span>
+            </TableCell>
+            <TableCell>
+              <span className="text-xs">{product?.category.title}</span>
             </TableCell>
 
             <TableCell>
-              <span className="text-sm font-semibold">${`${product.price[0]} - ${product.price[1]}`}</span>
+              {/* <span className="text-sm font-semibold">${`${product.price[0]} - ${product.price[1]}`}</span> */}
             </TableCell>
 
-            <TableCell>
-              <span className="text-sm">{product.quantity}</span>
-            </TableCell>
-            <TableCell>
-              {product.quantity > 0 ? (
-                <Badge type="success">Selling</Badge>
-              ) : (
-                <Badge type="danger">Sold Out</Badge>
-              )}
-            </TableCell>
-
-            <TableCell>
-              <span className="text-sm font-semibold">
-                {product.discount !== 0 && (
-                  <span>{product.discount.toFixed(0)}% Off</span>
-                )}
-              </span>
-            </TableCell>
             <TableCell>
               <Link
                 to={`/product/${product._id}`}
@@ -86,9 +69,9 @@ const ProductTable = ({ products }) => {
                 />
               </Link>
             </TableCell>
-            <TableCell>
+            {/* <TableCell>
               <ShowHideButton id={product._id} status={product.status} />
-            </TableCell>
+            </TableCell> */}
             <TableCell>
               <EditDeleteButton
                 id={product._id}

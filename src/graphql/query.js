@@ -86,12 +86,14 @@ export const GET_PRODUCTS = gql`
         reviews
         pictures {
             _id
+            url
         }
         brands {
             _id
         }
         category {
             _id
+            title
         }
         variants {
             _id
