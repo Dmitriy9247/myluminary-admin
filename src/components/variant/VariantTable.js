@@ -14,7 +14,7 @@ const VariantTable = ({variants}) => {
         <>
             <MainModal id={serviceId} title={title} />
             <MainDrawer>
-                <VariantDrawer />
+                <VariantDrawer id={serviceId}/>
             </MainDrawer>
 
             <TableBody>

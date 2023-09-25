@@ -17,10 +17,7 @@ import { useEffect } from 'react';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  // const { handleUpdate } = useToggleDrawer();
   const { toggleDrawer, isUpdate, setIsUpdate } = useContext(SidebarContext);
-
-  // const { data, loading } = useAsync(() => ProductServices.getProductById(id));
   const {data, loading, refetch} = useQuery(GET_PRODUCT, {variables:{id}})
 
   useEffect(()=>{

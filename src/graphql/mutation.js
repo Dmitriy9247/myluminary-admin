@@ -110,6 +110,15 @@ mutation CreateVariant($color: String, $size:Float, $quantity:Float, $sku:String
  }
 `;
 
+export const UPDATE_VARIANT = gql`
+mutation UpdateVariant($id:ID!, $color: String, $size:Float, $quantity:Float, $sku:String, $price: Float, $sale_price:Float, $picture:ID) {
+    updateVariant(_id:$id, input: {color:$color, size:$size, quantity:$quantity, sku:$sku, price:$price, sale_price:$sale_price, picture:$picture}) {
+        _id,
+        sku
+    }
+ }
+`;
+
 export const DELETE_VARIANT = gql`
 mutation DeleteVariant($id: ID!){
     deleteVariant(_id:$id) {

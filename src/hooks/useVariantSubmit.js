@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
 import { notifyError, notifySuccess } from '../utils/toast';
 import { storjImage } from '../services/StorjService';
-import { CREATE_VARIANT } from '../graphql/mutation';
+import { CREATE_VARIANT, UPDATE_VARIANT } from '../graphql/mutation';
 import { useParams } from 'react-router';
+import { GET_VARIANT } from '../graphql/query';
 
 
 const useVariantSubmit = (id) => {
@@ -13,7 +14,9 @@ const useVariantSubmit = (id) => {
   const [children, setChildren] = useState([]);
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
   const [createVariant] = useMutation(CREATE_VARIANT);
+  const [updateVariant] = useMutation(UPDATE_VARIANT);
   const { id:productId } = useParams();
+  const [getVariant] = useLazyQuery(GET_VARIANT);
 
 
   const {
@@ -41,8 +44,11 @@ const useVariantSubmit = (id) => {
         product: productId,
     };
 
-    console.log(variantData)
     if (id) {
+        updateVariant({variables: {id, ...variantData}}).then((res)=> {
+            setIsUpdate(true);
+            notifySuccess("Successfully created!");
+        }).catch((err) => notifyError("Something went wrong!"))
       closeDrawer();
     } else {
         createVariant({variables: {...variantData}}).then((res)=> {
@@ -59,7 +65,7 @@ const useVariantSubmit = (id) => {
       setValue("size");
       setValue('quantity');
       setValue('price');
-      setValue('sale_price')
+      setValue('sale_price');
       setImageUrl(null);
       clearErrors('color');
       clearErrors('size');
@@ -69,18 +75,19 @@ const useVariantSubmit = (id) => {
       return;
     }
     if (id) {
-    //   getCategory({ variables: {id}}).then((res) =>{
-    //     setValue('slug', res.data.category.slug)
-    //     setValue('title', res.data.category.title)
-    //     setValue('description', res.data.category.description)
-    //     setValue('parentId', res.data.category.parent?._id)
-    //     if(res.data.category.picture){
-    //       const{_id, bucket, key} = res.data.category.picture
-    //       setImageUrl({id:_id, url:storjImage(bucket, key)})
-    //     }
-    //   }).catch((err)=>{
-    //     notifyError(err.message)
-    //   })
+        getVariant({variables:{id}}).then((res)=>{
+            setValue('color', res.data.variant.color);
+            setValue("size", res.data.variant.size);
+            setValue('quantity', res.data.variant.quantity);
+            setValue('price', res.data.variant.price);
+            setValue('sale_price', res.data.variant.sale_price);
+            if(res.data.variant.picture){
+                const{_id, bucket, key} = res.data.variant.picture
+                setImageUrl({id:_id, url:storjImage(bucket, key)})
+              }
+        }).catch((err)=>{
+            notifyError("Something Went Wrong")
+        })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, setValue, isDrawerOpen]);

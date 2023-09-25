@@ -142,3 +142,21 @@ export const GET_PRODUCTS = gql`
     }
   }
 `
+
+export const GET_VARIANT = gql`
+query Variant($id:ID!) {
+  variant(_id: $id){
+    _id
+    color
+    size
+    quantity
+    price
+    sale_price
+    sku
+    picture {
+      _id
+      bucket
+      key
+    }
+  }
+}`;
