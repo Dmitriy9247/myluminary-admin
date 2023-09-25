@@ -12,6 +12,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@windmill/react-ui": "^0.5.1",
+    "aws-sdk": "^2.1463.0",
     "axios": "^0.24.0",
     "chart.js": "^3.7.1",
     "classnames": "2.2.6",

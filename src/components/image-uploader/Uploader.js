@@ -2,11 +2,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import { FiUploadCloud } from 'react-icons/fi';
+import {s3} from '../../services/StorjService';
 
 const Uploader = ({ setImageUrl, imageUrl }) => {
   const [files, setFiles] = useState([]);
   const uploadUrl = process.env.REACT_APP_CLOUDINARY_URL;
   const upload_Preset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET;
+
+  const params = {
+    Bucket: "luminary-bucket",
+    Key: "test-test-object"
+  }
+  
+  const url = s3.getSignedUrl("getObject", params);
+
+  console.log(url);
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
@@ -31,6 +41,21 @@ const Uploader = ({ setImageUrl, imageUrl }) => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', uploadPreset);
+        (async () => {
+
+          // `file` can be a readable stream in node or a `Blob` in the browser
+        
+          const params = {
+            Bucket: "luminary-bucket",
+            Key: "test-test-object",
+            Body: file
+          };
+        
+          await s3.upload(params, {
+            partSize: 64 * 1024 * 1024
+          }).promise();
+        
+        })();
         axios({
           url: uploadURL,
           method: 'POST',

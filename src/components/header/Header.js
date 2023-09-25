@@ -16,6 +16,7 @@ import {
 
 import { AdminContext } from '../../context/AdminContext';
 import { SidebarContext } from '../../context/SidebarContext';
+import { storjImage } from '../../services/StorjService';
 
 const Header = () => {
   const { toggleSidebar } = useContext(SidebarContext);
@@ -105,7 +106,7 @@ const Header = () => {
                             <div className="flex items-center">
                               <Avatar
                                 className="p-1 mr-2 md:block bg-gray-50 border border-gray-200"
-                                src="https://i.postimg.cc/tCsSNSxS/Yellow-Sweet-Corn-Bag-each.jpg"
+                                src={storjImage("luminary-bucket", "test-test-object")}
                                 alt="image"
                               />
 
@@ -289,7 +290,7 @@ const Header = () => {
                 {adminInfo.image ? (
                   <Avatar
                     className="align-middle"
-                    src={`${adminInfo.image}`}
+                    src={storjImage("luminary-bucket", "test-test-object")}
                     aria-hidden="true"
                   />
                 ) : (
