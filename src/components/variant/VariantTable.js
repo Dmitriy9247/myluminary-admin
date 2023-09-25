@@ -20,7 +20,7 @@ const VariantTable = ({variants}) => {
             <TableBody>
                 {variants?.map((item) => (
                     <TableRow key={item._id}>
-                        <TableCell className='text-xs'>
+                        <TableCell className='font-semibold uppercase text-xs'>
                             {item._id.substring(20, 24)}
                         </TableCell>
                         <TableCell>
