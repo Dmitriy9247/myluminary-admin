@@ -101,6 +101,15 @@ query Product($id:ID!) {
     }
     variants {
         _id
+        color
+        size
+        quantity
+        price
+        sale_price
+        picture {
+          bucket
+          key
+        }
     }
   }
 }`
@@ -127,9 +136,6 @@ export const GET_PRODUCTS = gql`
         category {
             _id
             title
-        }
-        variants {
-            _id
         }
       }
       totalProducts

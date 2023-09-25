@@ -100,3 +100,12 @@ mutation CreateMedia($bucket:String!, $key:String!){
     }
 }
 `;
+
+export const CREATE_VARIANT = gql`
+mutation CreateVariant($color: String, $size:Float, $quantity:Float, $sku:String!, $price: Float!, $sale_price:Float!, $product:ID!, $picture:ID) {
+    createVariant(input: {color:$color, size:$size, quantity:$quantity, sku:$sku, price:$price, sale_price:$sale_price, product:$product, picture:$picture}) {
+        _id,
+        sku
+    }
+ }
+`;
