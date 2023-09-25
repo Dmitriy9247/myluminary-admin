@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Table,
   TableHeader,
@@ -41,15 +41,25 @@ const Products = () => {
     handleSubmitForAll,
     sortedField,
     setSortedField,
+    isUpdate,
+    setIsUpdate,
     limitData,
   } = useContext(SidebarContext);
 
-  const {data, loading} = useQuery(GET_PRODUCTS, {variables: {
+
+  const {data, loading, refetch} = useQuery(GET_PRODUCTS, {variables: {
     category: category,
     name: searchText,
     limit: limitData,
     page: currentPage
   }})
+
+  useEffect(()=>{
+    if (isUpdate){
+      refetch()
+      setIsUpdate(false)
+    }
+  },[isUpdate])
 
   return (
     <>

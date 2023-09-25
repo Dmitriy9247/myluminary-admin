@@ -12,7 +12,7 @@ import { SidebarContext } from '../../context/SidebarContext';
 import { notifySuccess, notifyError } from '../../utils/toast';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
 import { useMutation } from '@apollo/client';
-import { DELETE_BRAND, DELETE_CATEGORY } from '../../graphql/mutation';
+import { DELETE_BRAND, DELETE_CATEGORY, DELETE_PRODUCT } from '../../graphql/mutation';
 import productData from '../../utils/products';
 
 const MainModal = ({ id, title }) => {
@@ -21,15 +21,14 @@ const MainModal = ({ id, title }) => {
   const location = useLocation();
   const [deleteCategory] = useMutation(DELETE_CATEGORY)
   const [deleteBrand] = useMutation(DELETE_BRAND)
+  const [deleteProduct] = useMutation(DELETE_PRODUCT)
 
   const handleDelete = () => {
     if (location.pathname === '/products') {
-      ProductServices.deleteProduct(id)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
+      deleteProduct({variables: {id}}).then((res) => {
+        setIsUpdate(true);
+        notifySuccess("Successfully Deleted!");
+      })
       closeModal();
       setServiceId();
     }
