@@ -54,8 +54,9 @@ const CategoryDrawer = ({ id }) => {
                   register={register}
                   label="Parent Category"
                   name="parentId"
+                  require={false}
                 />
-                <Error errorName={errors.type} />
+                <Error errorName={errors.parentId} />
               </div>
             </div>
 

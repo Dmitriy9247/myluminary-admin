@@ -1,7 +1,9 @@
 import { S3 } from "aws-sdk";
-const accessKeyId = "jumxzt4o5iprgrgmoztsbnenumcq";
-const secretAccessKey = "jzvw6qlkckywznmpyi5xgnedtimfxmnkaqcjb7wrth6ghplrnwhxa";
-const endpoint = "https://gateway.storjshare.io";
+require('dotenv').config()
+
+const accessKeyId = process.env.REACT_STORJ_ACCESS_KEY ?? 'jumxzt4o5iprgrgmoztsbnenumcq';
+const secretAccessKey = process.env.REACT_STORJ_SECRET_KEY ?? 'jzvw6qlkckywznmpyi5xgnedtimfxmnkaqcjb7wrth6ghplrnwhxa';
+const endpoint = process.env.REACT_STORJ_ENT_POINT ?? 'https://gateway.storjshare.io';
 
 export const s3 = new S3({
   accessKeyId,

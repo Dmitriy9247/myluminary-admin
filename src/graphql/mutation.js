@@ -89,3 +89,14 @@ mutation DeleteProduct($id: ID!){
     deleteProduct(_id:$id)
  }
 `;
+
+
+export const CREATE_MEDIA = gql`
+mutation CreateMedia($bucket:String!, $key:String!){
+    createMedia(input: {bucket:$bucket, key:$key}){
+        _id,
+        bucket,
+        key
+    }
+}
+`;

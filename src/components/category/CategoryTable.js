@@ -7,6 +7,7 @@ import ShowHideButton from '../table/ShowHideButton';
 import CategoryDrawer from '../drawer/CategoryDrawer';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
 import EditDeleteButton from '../table/EditDeleteButton';
+import { storjImage } from '../../services/StorjService';
 
 const CategoryTable = ({ categories }) => {
   const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
@@ -27,7 +28,7 @@ const CategoryTable = ({ categories }) => {
             <TableCell>
               <Avatar
                 className="hidden mr-3 md:block bg-gray-50 p-1"
-                src={item.icon}
+                src={item?.picture && storjImage(item?.picture?.bucket, item?.picture?.key)}
                 // alt={item.title}
               />
             </TableCell>

@@ -7,7 +7,7 @@ import { GET_CATEGORY } from '../graphql/query';
 import { notifyError, notifySuccess } from '../utils/toast';
 
 const useCategorySubmit = (id) => {
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState(null);
   const [children, setChildren] = useState([]);
   const { isDrawerOpen, closeDrawer, setIsUpdate } = useContext(SidebarContext);
   const [createCategory] = useMutation(CREATE_CATEGORY)
@@ -27,11 +27,13 @@ const useCategorySubmit = (id) => {
       notifyError('Icon is required!');
       return;
     }
+    console.log(imageUrl)
     const categoryData = {
       parentId: parentId,
       title: title,
       description: description,
       slug: parentId ?? "test-slug",
+      pictureId: imageUrl.id,
       status: true,
     };
 
@@ -59,7 +61,7 @@ const useCategorySubmit = (id) => {
       setValue("title");
       setValue('description');
       setValue('parentId');
-      setImageUrl('');
+      setImageUrl(null);
       setChildren([]);
       clearErrors('slug');
       clearErrors('title');

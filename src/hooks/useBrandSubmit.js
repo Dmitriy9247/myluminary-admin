@@ -31,6 +31,7 @@ const useBrandSubmit = (id) => {
       description: description,
       slug: "test-slug",
       url: url,
+      picture: imageUrl.id
     };
 
     if (id) {

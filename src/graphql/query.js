@@ -10,7 +10,8 @@ query Category($id:ID!) {
     description
     picture {
       _id
-      url
+      bucket
+      key
     }
     parent {
       _id
@@ -27,7 +28,8 @@ export const GET_CATEGORIES = gql`
         status
         picture {
           _id
-          url
+          bucket
+          key
         }
         parent {
             _id
@@ -52,7 +54,8 @@ query Brand($id:ID!) {
     url
     picture {
       _id
-      url
+      bucket
+      key
     }
   }
 }
@@ -67,7 +70,8 @@ export const GET_BRANDS = gql`
         url
         picture {
           _id
-          url
+          bucket
+          key
         }
       }
   }
@@ -85,7 +89,8 @@ query Product($id:ID!) {
     reviews
     pictures {
         _id
-        url
+        bucket
+        key
     }
     brands {
         _id
@@ -113,7 +118,8 @@ export const GET_PRODUCTS = gql`
         reviews
         pictures {
             _id
-            url
+            bucket
+            key
         }
         brands {
             _id

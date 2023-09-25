@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import { FiUploadCloud } from 'react-icons/fi';
-import {s3} from '../../services/StorjService';
+import {s3, storjImage} from '../../services/StorjService';
+import uniqid from 'uniqid';
+import { useMutation } from '@apollo/client';
+import { CREATE_MEDIA } from '../../graphql/mutation';
 
 const Uploader = ({ setImageUrl, imageUrl }) => {
   const [files, setFiles] = useState([]);
-  const uploadUrl = process.env.REACT_APP_CLOUDINARY_URL;
-  const upload_Preset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET;
+  const [createMedia] = useMutation(CREATE_MEDIA)
 
-  const params = {
-    Bucket: "luminary-bucket",
-    Key: "test-test-object"
-  }
-  
-  const url = s3.getSignedUrl("getObject", params);
-
-  console.log(url);
-
+  const bucketName = process.env.REACT_STORJ_BUCKET_NAME ?? 'luminary-bucket'
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     multiple: false,
@@ -34,43 +27,34 @@ const Uploader = ({ setImageUrl, imageUrl }) => {
   });
 
   useEffect(() => {
-    const uploadURL = uploadUrl;
-    const uploadPreset = upload_Preset;
     if (files) {
       files.forEach((file) => {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', uploadPreset);
         (async () => {
-
-          // `file` can be a readable stream in node or a `Blob` in the browser
-        
+          const uniqID = uniqid()
           const params = {
-            Bucket: "luminary-bucket",
-            Key: "test-test-object",
+            Bucket: bucketName,
+            Key: uniqID,
             Body: file
           };
-        
-          await s3.upload(params, {
-            partSize: 64 * 1024 * 1024
-          }).promise();
-        
+  
+          try {
+            const response = await s3.upload(params, { partSize: 64 * 1024 * 1024 }).promise();
+
+            const mediaData = {
+              bucket: response.Bucket,
+              key: response.Key,
+              url: storjImage(response.Bucket, response.Key)
+            }
+
+            createMedia({variables: {...mediaData}}).then((res)=>{
+              setImageUrl({id: res.data.createMedia._id, url: storjImage(res.data.createMedia.bucket, res.data.createMedia.key)})
+            })
+
+          } catch (error) {
+            console.error("Upload failed:", error);
+            // Handle error here
+          }
         })();
-        axios({
-          url: uploadURL,
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          data: formData,
-        })
-          .then((res) => {
-            setImageUrl(res.data.secure_url);
-          })
-          .catch((err) => {
-            setImageUrl(URL.createObjectURL(file));
-            console.log(err)
-          });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,7 +99,7 @@ const Uploader = ({ setImageUrl, imageUrl }) => {
         {imageUrl ? (
           <img
             className="inline-flex border rounded-md border-gray-100 dark:border-gray-600 w-24 max-h-24 p-2"
-            src={imageUrl}
+            src={imageUrl.url}
             alt="product"
           />
         ) : (
