@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { SidebarContext } from '../context/SidebarContext';
 import VariantDrawer from '../components/drawer/VariantDrawer';
+import { useEffect } from 'react';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -20,7 +21,14 @@ const ProductDetails = () => {
   const { toggleDrawer, isUpdate, setIsUpdate } = useContext(SidebarContext);
 
   // const { data, loading } = useAsync(() => ProductServices.getProductById(id));
-  const {data, loading} = useQuery(GET_PRODUCT, {variables:{id}})
+  const {data, loading, refetch} = useQuery(GET_PRODUCT, {variables:{id}})
+
+  useEffect(()=>{
+    if (isUpdate){
+      refetch()
+      setIsUpdate(false)
+    }
+  },[isUpdate])
 
   return (
     <>

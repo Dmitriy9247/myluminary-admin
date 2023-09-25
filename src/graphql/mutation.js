@@ -109,3 +109,11 @@ mutation CreateVariant($color: String, $size:Float, $quantity:Float, $sku:String
     }
  }
 `;
+
+export const DELETE_VARIANT = gql`
+mutation DeleteVariant($id: ID!){
+    deleteVariant(_id:$id) {
+        _id
+    }
+ }
+`;
