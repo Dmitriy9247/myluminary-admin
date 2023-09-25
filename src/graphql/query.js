@@ -137,6 +137,10 @@ export const GET_PRODUCTS = gql`
             _id
             title
         }
+        variants {
+          price
+          sale_price
+        }
       }
       totalProducts
     }
