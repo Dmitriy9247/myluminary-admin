@@ -4,6 +4,7 @@ import MainDrawer from "../drawer/MainDrawer";
 import MainModal from "../modal/MainModal"
 import EditDeleteButton from "../table/EditDeleteButton";
 import BrandDrawer from "./BrandDrawer";
+import { storjImage } from "../../services/StorjService";
 
 const BrandTable = ({brands}) => {
     const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
@@ -23,7 +24,7 @@ const BrandTable = ({brands}) => {
                         <TableCell>
                             <Avatar
                                 className="hidden mr-3 md:block bg-gray-50 p-1"
-                                src={item.picture}
+                                src={item?.picture && storjImage(item?.picture.bucket, item?.picture.key)}
                             />
                         </TableCell>
                         <TableCell className="text-sm">

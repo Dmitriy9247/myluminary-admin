@@ -5,6 +5,7 @@ import { SidebarContext } from '../context/SidebarContext';
 import { CREATE_BRAND, UPDATE_BRAND  } from '../graphql/mutation';
 import { GET_BRAND, GET_CATEGORY } from '../graphql/query';
 import { notifyError, notifySuccess } from '../utils/toast';
+import { storjImage } from '../services/StorjService';
 
 const useBrandSubmit = (id) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -71,6 +72,10 @@ const useBrandSubmit = (id) => {
         setValue('title', res.data.brand.title)
         setValue('description', res.data.brand.description)
         setValue('url',res.data.brand.url)
+        if(res.data.brand.picture){
+          const{_id, bucket, key} = res.data.brand.picture
+          setImageUrl({id:_id, url:storjImage(bucket, key)})
+        }
       }).catch((err)=>{
         notifyError(err.message)
       })

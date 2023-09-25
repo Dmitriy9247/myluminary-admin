@@ -5,6 +5,7 @@ import { SidebarContext } from '../context/SidebarContext';
 import { CREATE_CATEGORY, UPDATE_CATEGORY } from '../graphql/mutation';
 import { GET_CATEGORY } from '../graphql/query';
 import { notifyError, notifySuccess } from '../utils/toast';
+import { storjImage } from '../services/StorjService';
 
 const useCategorySubmit = (id) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -74,6 +75,10 @@ const useCategorySubmit = (id) => {
         setValue('title', res.data.category.title)
         setValue('description', res.data.category.description)
         setValue('parentId', res.data.category.parent?._id)
+        if(res.data.category.picture){
+          const{_id, bucket, key} = res.data.category.picture
+          setImageUrl({id:_id, url:storjImage(bucket, key)})
+        }
       }).catch((err)=>{
         notifyError(err.message)
       })

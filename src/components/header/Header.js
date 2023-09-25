@@ -106,7 +106,7 @@ const Header = () => {
                             <div className="flex items-center">
                               <Avatar
                                 className="p-1 mr-2 md:block bg-gray-50 border border-gray-200"
-                                src={storjImage("luminary-bucket", "test-test-object")}
+                                src="https://i.ibb.co/ZTWbx5z/team-1.jpg"
                                 alt="image"
                               />
 
@@ -290,7 +290,7 @@ const Header = () => {
                 {adminInfo.image ? (
                   <Avatar
                     className="align-middle"
-                    src={storjImage("luminary-bucket", "test-test-object")}
+                    src="https://i.ibb.co/ZTWbx5z/team-1.jpg"
                     aria-hidden="true"
                   />
                 ) : (
