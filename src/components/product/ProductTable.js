@@ -15,6 +15,7 @@ import MainDrawer from '../drawer/MainDrawer';
 import ProductDrawer from '../drawer/ProductDrawer';
 import EditDeleteButton from '../table/EditDeleteButton';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
+import { storjImage } from '../../services/StorjService';
 
 const ProductTable = ({ products }) => {
   const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
@@ -38,7 +39,7 @@ const ProductTable = ({ products }) => {
               <div className="flex items-center">
                 <Avatar
                   className="hidden p-1 mr-2 md:block bg-gray-50 shadow-none"
-                  src={product.image}
+                  src={(product?.pictures && product?.pictures.length > 0) ? storjImage(product.pictures[0].bucket, product.pictures[0].key) : ""}
                 />
                 <div>
                   <h2 className="text-sm font-medium">{product.name}</h2>

@@ -5,7 +5,6 @@ import {
   TableCell,
   TableFooter,
   TableContainer,
-  Select,
   Input,
   Button,
   Card,
@@ -13,15 +12,10 @@ import {
   Pagination,
 } from '@windmill/react-ui';
 import { FiPlus } from 'react-icons/fi';
-import { CSVReader, CSVDownloader } from 'react-papaparse';
 import { GET_PRODUCTS } from '../graphql/query';
 import { useQuery } from '@apollo/client';
-import useAsync from '../hooks/useAsync';
-import useFilter from '../hooks/useFilter';
-import productData from '../utils/products';
 import NotFound from '../components/table/NotFound';
 import Loading from '../components/preloader/Loading';
-import ProductServices from '../services/ProductServices';
 import PageTitle from '../components/Typography/PageTitle';
 import { SidebarContext } from '../context/SidebarContext';
 import ProductTable from '../components/product/ProductTable';
@@ -39,8 +33,6 @@ const Products = () => {
     setCategory,
     searchRef,
     handleSubmitForAll,
-    sortedField,
-    setSortedField,
     isUpdate,
     setIsUpdate,
     limitData,
@@ -90,18 +82,6 @@ const Products = () => {
             <div className="flex-grow-0 md:flex-grow lg:flex-grow xl:flex-grow">
               <SelectCategory setCategory={setCategory} />
             </div>
-            {/* <div className="flex-grow-0 md:flex-grow lg:flex-grow xl:flex-grow">
-              <Select
-                onChange={(e) => setSortedField(e.target.value)}
-                className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 border-transparent focus:bg-white"
-              >
-                <option value="All" defaultValue hidden>
-                  Price
-                </option>
-                <option value="Low">Low to High</option>
-                <option value="High">High to Low</option>
-              </Select>
-            </div> */}
             <div className="w-full md:w-56 lg:w-56 xl:w-56">
               <Button onClick={toggleDrawer} className="w-full rounded-md h-12">
                 <span className="mr-3">
