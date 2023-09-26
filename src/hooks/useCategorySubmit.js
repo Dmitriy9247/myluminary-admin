@@ -6,6 +6,7 @@ import { CREATE_CATEGORY, UPDATE_CATEGORY } from '../graphql/mutation';
 import { GET_CATEGORY } from '../graphql/query';
 import { notifyError, notifySuccess } from '../utils/toast';
 import { storjImage } from '../services/StorjService';
+import slugify from 'slugify';
 
 const useCategorySubmit = (id) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -28,12 +29,11 @@ const useCategorySubmit = (id) => {
       notifyError('Icon is required!');
       return;
     }
-    console.log(imageUrl)
     const categoryData = {
       parentId: parentId,
       title: title,
       description: description,
-      slug: parentId ?? "test-slug",
+      slug: slugify(title, {lower:true}),
       pictureId: imageUrl.id,
       status: true,
     };
@@ -45,14 +45,14 @@ const useCategorySubmit = (id) => {
       }}).then((res) => {
         setIsUpdate(true);
         notifySuccess("Successfully Updated!");
+        closeDrawer();
       }).catch((err) => notifyError(err.message))
-      closeDrawer();
     } else {
       createCategory({variables:{...categoryData}}).then((res) => {
         setIsUpdate(true);
         notifySuccess("Successfully Created!");
+        closeDrawer();
       }).catch((err)=> notifyError(err.message))
-      closeDrawer();
     }
   };
 
