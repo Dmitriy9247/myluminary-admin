@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select } from '@windmill/react-ui';
-import ParentCategory from '../category/ParentCategory';
+import SlugCategory from '../category/SlugCategory';
 
 const SelectCategory = ({ setCategory }) => {
   return (
@@ -12,7 +12,7 @@ const SelectCategory = ({ setCategory }) => {
         <option value="" defaultValue>
           All Categories
         </option>
-        <ParentCategory />
+        <SlugCategory />
       </Select>
     </>
   );

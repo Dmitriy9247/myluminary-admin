@@ -91,7 +91,7 @@ const useFilter = (data) => {
     //products filtering
 
     if (filter) {
-      services = services.filter((item) => item.parent && item.parent._id === filter);
+      services = services.filter((item) => item.parent && item.parent.slug === filter);
     }
 
     if (sortedField === 'Low') {
