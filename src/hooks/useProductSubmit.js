@@ -7,6 +7,7 @@ import { GET_PRODUCT } from '../graphql/query';
 import ProductServices from '../services/ProductServices';
 import { notifyError, notifySuccess } from '../utils/toast';
 import { storjImage } from '../services/StorjService';
+import slugify from 'slugify';
 
 const useProductSubmit = (id) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -38,9 +39,7 @@ const useProductSubmit = (id) => {
 
     const productData = {
       name: data.name,
-      slug: data.slug
-        ? data.slug
-        : data.name.toLowerCase().replace('&', '').split(' ').join('-'),
+      slug: slugify(data.name, {lower:true}),
       short_description: data.short_description,
       long_description: data.long_description,
       category: data.category,
@@ -55,16 +54,16 @@ const useProductSubmit = (id) => {
       }}).then((res) => {
         setIsUpdate(true)
         notifySuccess("Successfully Updated!")
+        closeDrawer();
       }).catch((err) => notifyError(err.message));
-      closeDrawer();
     } else {
       createProduct({variables:{
         ...productData
       }}).then((res) => {
         setIsUpdate(true)
         notifySuccess("Successfully Added!");
+        closeDrawer();
       }).catch((err) => notifyError(err.message));
-      closeDrawer();
     }
   };
 
