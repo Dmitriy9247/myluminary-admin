@@ -30,7 +30,7 @@ const useCategorySubmit = (id) => {
       return;
     }
     const categoryData = {
-      parentId: parentId,
+      parentId: (parentId == "") ? null : parentId,
       title: title,
       description: description,
       slug: slugify(title, {lower:true}),

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client"
 
 export const CREATE_CATEGORY = gql`
  mutation CreateCategory($title: String!, $description:String, $parentId:ID, $pictureId:ID, $slug: String!, $status:Boolean){
-    createCategory(input: {title:$title, description:$description, parentId:$parentId, pictureId:$pictureId, slug:$slug, status:$status}){
+    createCategory(input: {title:$title, description:$description, parent:$parentId, picture:$pictureId, slug:$slug, status:$status}){
         _id,
         title,
         slug
