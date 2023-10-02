@@ -12,7 +12,7 @@ import { SidebarContext } from '../../context/SidebarContext';
 import { notifySuccess, notifyError } from '../../utils/toast';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
 import { useMutation } from '@apollo/client';
-import { DELETE_BRAND, DELETE_CATEGORY, DELETE_PRODUCT, DELETE_VARIANT } from '../../graphql/mutation';
+import { DELETE_BRAND, DELETE_CATEGORY, DELETE_PRODUCT, DELETE_USER, DELETE_VARIANT } from '../../graphql/mutation';
 import productData from '../../utils/products';
 
 const MainModal = ({ id, title }) => {
@@ -23,6 +23,7 @@ const MainModal = ({ id, title }) => {
   const [deleteBrand] = useMutation(DELETE_BRAND)
   const [deleteProduct] = useMutation(DELETE_PRODUCT)
   const [deleteVariant] = useMutation(DELETE_VARIANT)
+  const [deleteUser] = useMutation(DELETE_USER)
 
   const handleDelete = () => {
     console.log(location.pathname)
@@ -60,12 +61,10 @@ const MainModal = ({ id, title }) => {
       setServiceId();
     }
     if (location.pathname === '/customers') {
-      UserServices.deleteUser(id)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
+      deleteUser({variables: {id}}).then((res) => {
+        setIsUpdate(true)
+        notifySuccess("Successfully Deleted!");
+      })
       closeModal();
       setServiceId();
     }

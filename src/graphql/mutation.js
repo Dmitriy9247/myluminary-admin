@@ -126,3 +126,9 @@ mutation DeleteVariant($id: ID!){
     }
  }
 `;
+
+export const DELETE_USER = gql`
+mutation DeleteUser($id: ID!){
+    deleteUser(_id:$id)
+ }
+`;

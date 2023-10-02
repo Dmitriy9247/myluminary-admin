@@ -48,7 +48,7 @@ const CustomerTable = ({ customers }) => {
 
             <TableCell>
               <div className="flex justify-end text-right">
-                <div className="p-2 cursor-pointer text-gray-400 hover:text-green-600">
+                {/* <div className="p-2 cursor-pointer text-gray-400 hover:text-green-600">
                   {' '}
                   <Link to={`/customer-order/${user._id}`}>
                     <Tooltip
@@ -58,7 +58,7 @@ const CustomerTable = ({ customers }) => {
                       bgColor="#34D399"
                     />
                   </Link>
-                </div>
+                </div> */}
                 <div
                   onClick={() => handleModalOpen(user._id, user.name)}
                   className="p-2 cursor-pointer text-gray-400 hover:text-red-600"
