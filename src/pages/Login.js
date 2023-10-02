@@ -3,12 +3,6 @@ import { Link } from 'react-router-dom';
 import { Button } from '@windmill/react-ui';
 import { ImFacebook, ImGoogle } from 'react-icons/im';
 
-import Error from '../components/form/Error';
-import LabelArea from '../components/form/LabelArea';
-import InputArea from '../components/form/InputArea';
-import ImageLight from '../assets/img/login-office.jpeg';
-import ImageDark from '../assets/img/login-office-dark.jpeg';
-import useLoginSubmit from '../hooks/useLoginSubmit';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import jsonData from '../utils/auth.json';
@@ -17,27 +11,47 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Cookies from 'js-cookie';
 import { useContext } from 'react';
 import Loading from '../components/preloader/Loading';
+import { notifyError } from '../utils/toast';
+import { useLazyQuery } from '@apollo/client';
+import { GET_USER_BY_EMAIL } from '../graphql/query';
 
 
 const Login = () => {
-  const {user, loginWithRedirect, isAuthenticated} = useAuth0()
+  const {user, loginWithRedirect, isAuthenticated, logout} = useAuth0()
+  const [findbyEmail] = useLazyQuery(GET_USER_BY_EMAIL)
   const { dispatch } = useContext(AdminContext);
   const history = useHistory();
 
+  const logoutWithRedirect = () =>
+  logout({
+      logoutParams: {
+        returnTo: process.env.REACT_APP_URL,
+      }
+  });
+
   useEffect(() => {
     if(isAuthenticated){
-      const cookieTimeOut = 0.5;
-      dispatch({ type: 'USER_LOGIN', payload: jsonData });
-      Cookies.set('adminInfo', JSON.stringify(jsonData), {
-        expires: cookieTimeOut,
-      });
-      history.replace('/');
+      const email = user?.email
+      findbyEmail({variables:{email}}).then(res=> {
+        const cookieTimeOut = 0.5;
+        if(res.data.findbyEmail){
+          if (res.data.findbyEmail.role && res.data.findbyEmail.role === "admin"){
+            dispatch({ type: 'USER_LOGIN', payload: jsonData });
+            Cookies.set('adminInfo', JSON.stringify(jsonData), {
+              expires: cookieTimeOut,
+            });
+            history.replace('/dashboard');
+          }
+        }
+        setTimeout(logoutWithRedirect(), 2000)
+      }).catch((err) => {
+        notifyError(err)
+        setTimeout(logoutWithRedirect(), 2000)
+      })
     }else {
       loginWithRedirect()
     }
   }, [isAuthenticated])
-  const { onSubmit, register, handleSubmit, errors, loading } =
-    useLoginSubmit();
 
   return (
     <>

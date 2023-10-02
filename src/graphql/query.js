@@ -179,3 +179,13 @@ query Users {
   }
 }
 `
+
+export const GET_USER_BY_EMAIL = gql`
+query FindbyEmail($email:String!) {
+  findbyEmail(email:$email) {
+      _id
+      email
+      role
+  }
+}
+`

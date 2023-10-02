@@ -33,7 +33,7 @@ const Header = () => {
   const logoutWithRedirect = () =>
   logout({
       logoutParams: {
-        returnTo: 'http://localhost:4000',
+        returnTo: process.env.REACT_APP_URL,
       }
   });
 

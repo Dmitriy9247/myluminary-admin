@@ -27,7 +27,10 @@ const App = () => {
   }
 
   if (isLoading) {
-    return <Loading />;
+
+    return (<div className="flex items-center min-h-screen justify-center p-6 bg-gray-50 dark:bg-gray-900">
+              <Loading />
+          </div>);
   }
 
 
