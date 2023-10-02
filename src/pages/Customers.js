@@ -10,6 +10,8 @@ import {
   CardBody,
   Pagination,
 } from '@windmill/react-ui';
+import { GET_USERS } from '../graphql/query';
+import { useQuery } from '@apollo/client';
 
 import useAsync from '../hooks/useAsync';
 import useFilter from '../hooks/useFilter';
@@ -20,7 +22,7 @@ import PageTitle from '../components/Typography/PageTitle';
 import CustomerTable from '../components/customer/CustomerTable';
 
 const Customers = () => {
-  const { data, loading } = useAsync(UserServices.getAllUsers);
+  const {data, loading} = useQuery(GET_USERS)
 
   const {
     userRef,
@@ -30,11 +32,11 @@ const Customers = () => {
     dataTable,
     serviceData,
     handleSubmitUser,
-  } = useFilter(data);
+  } = useFilter(data?.users);
 
   return (
     <>
-      <PageTitle>Customers</PageTitle>
+      <PageTitle>Users</PageTitle>
       <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 mb-5">
         <CardBody>
           <form
@@ -47,7 +49,7 @@ const Customers = () => {
                 className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 border-transparent focus:bg-white"
                 type="search"
                 name="search"
-                placeholder="Search by name/email/phone"
+                placeholder="Search by email"
               />
               <button
                 type="submit"

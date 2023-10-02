@@ -165,3 +165,17 @@ query Variant($id:ID!) {
     }
   }
 }`;
+
+export const GET_USERS = gql`
+query Users {
+  users {
+      _id
+      name
+      picture
+      email
+      role
+      phone_number
+      email_verified
+  }
+}
+`
