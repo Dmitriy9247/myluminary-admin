@@ -17,6 +17,7 @@ import {
 import { AdminContext } from '../../context/AdminContext';
 import { SidebarContext } from '../../context/SidebarContext';
 import { storjImage } from '../../services/StorjService';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Header = () => {
   const { toggleSidebar } = useContext(SidebarContext);
@@ -27,8 +28,17 @@ const Header = () => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const pRef = useRef();
   const nRef = useRef();
+  const {logout} = useAuth0();
+
+  const logoutWithRedirect = () =>
+  logout({
+      logoutParams: {
+        returnTo: 'http://localhost:4000',
+      }
+  });
 
   const handleLogOut = () => {
+    logoutWithRedirect();
     dispatch({ type: 'USER_LOGOUT' });
     Cookies.remove('adminInfo');
   };

@@ -12,6 +12,7 @@ import { SidebarProvider } from './context/SidebarContext';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from './graphql'
 import ThemeSuspense from './components/theme/ThemeSuspense';
+import { Auth0Provider } from '@auth0/auth0-react';
 // import * as serviceWorker from './serviceWorker';
 
 // if (process.env.NODE_ENV !== "production") {
@@ -19,18 +20,29 @@ import ThemeSuspense from './components/theme/ThemeSuspense';
 //   axe(React, ReactDOM, 1000);
 // }
 
+const providerConfig = {  
+  domain: 'dev-6wfmyrzd8pj2qewp.us.auth0.com',
+  clientId: 'aTdnve44aHq3vMFF7zcKu3O2bxLJ4Jzq',
+  authorizationParams: {
+    redirect_uri: 'http://localhost:4000/',
+  },
+}
+
 ReactDOM.render(
-  <ApolloProvider client={ApolloClient}>
+    <ApolloProvider client={ApolloClient}>
       <AdminProvider>
         <SidebarProvider>
           <Suspense fallback={<ThemeSuspense />}>
             <Windmill usePreferences theme={myTheme}>
-                <App />
+                <Auth0Provider {...providerConfig}>
+                  <App />
+                </Auth0Provider>
             </Windmill>
           </Suspense>
         </SidebarProvider>
       </AdminProvider>
-    </ApolloProvider>,
+    </ApolloProvider>
+,
 
   document.getElementById('root')
 );

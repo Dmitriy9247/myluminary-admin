@@ -6,6 +6,7 @@
   "dependencies": {
     "@apollo/client": "^3.8.4",
     "@apollo/react-hooks": "^4.0.0",
+    "@auth0/auth0-react": "^2.2.1",
     "@pathofdev/react-tag-input": "^1.0.7",
     "@react-pdf/renderer": "^1.6.17",
     "@testing-library/jest-dom": "^5.14.1",

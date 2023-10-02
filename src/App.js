@@ -8,6 +8,9 @@ import {
 import { ToastContainer } from './utils/toast';
 import AccessibleNavigationAnnouncer from './components/AccessibleNavigationAnnouncer';
 import PrivateRoute from './components/login/PrivateRoute';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect } from 'react';
+import Loading from './components/preloader/Loading';
 
 
 const Layout = lazy(() => import('./layout/Layout'));
@@ -17,6 +20,17 @@ const ForgetPassword = lazy(() => import('./pages/ForgotPassword'));
 const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 
 const App = () => {
+  const {isLoading, error} = useAuth0();
+
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+
   return (
     <>
       <ToastContainer />
