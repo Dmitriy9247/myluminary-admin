@@ -24,7 +24,7 @@ const providerConfig = {
   domain: 'dev-6wfmyrzd8pj2qewp.us.auth0.com',
   clientId: 'aTdnve44aHq3vMFF7zcKu3O2bxLJ4Jzq',
   authorizationParams: {
-    redirect_uri: 'http://localhost:4000/',
+    redirect_uri: process.env.REACT_APP_URL,
   },
 }
 
