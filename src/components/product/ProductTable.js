@@ -50,7 +50,7 @@ const ProductTable = ({ products }) => {
               <span className="text-xs">{product?.short_description}</span>
             </TableCell>
             <TableCell>
-              <span className="text-xs">{product?.category.title}</span>
+              <span className="text-xs">{product?.category && product?.category.title}</span>
             </TableCell>
 
             <TableCell>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Table,
   TableHeader,
@@ -20,10 +20,11 @@ import UserServices from '../services/UserServices';
 import Loading from '../components/preloader/Loading';
 import PageTitle from '../components/Typography/PageTitle';
 import CustomerTable from '../components/customer/CustomerTable';
+import { SidebarContext } from '../context/SidebarContext';
 
 const Customers = () => {
-  const {data, loading} = useQuery(GET_USERS)
-
+  const {data, loading, refetch} = useQuery(GET_USERS)
+  const {isUpdate} = useContext(SidebarContext)
   const {
     userRef,
     handleChangePage,
@@ -33,6 +34,13 @@ const Customers = () => {
     serviceData,
     handleSubmitUser,
   } = useFilter(data?.users);
+
+  useEffect(() => {
+    if (isUpdate){
+      refetch()
+      setIsUpdate(false)
+    }
+  }, [isUpdate])
 
   return (
     <>
