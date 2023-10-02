@@ -24,7 +24,7 @@ import { SidebarContext } from '../context/SidebarContext';
 
 const Customers = () => {
   const {data, loading, refetch} = useQuery(GET_USERS)
-  const {isUpdate} = useContext(SidebarContext)
+  const {isUpdate, setIsUpdate} = useContext(SidebarContext)
   const {
     userRef,
     handleChangePage,
