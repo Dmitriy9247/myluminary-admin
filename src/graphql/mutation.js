@@ -127,6 +127,17 @@ mutation DeleteVariant($id: ID!){
  }
 `;
 
+
+export const UPDATE_USER = gql`
+mutation UpdateUser($id:ID!, $name: String, $family_name:String, $given_name:String, $nickname:String, $picture: String, $role:String){
+    updateUser(_id:$id, input: {name:$name, family_name:$family_name, given_name:$given_name, nickname:$nickname, picture:$picture, role:$role}){
+        _id,
+        name,
+        role
+    }
+ }
+`;
+
 export const DELETE_USER = gql`
 mutation DeleteUser($id: ID!){
     deleteUser(_id:$id)

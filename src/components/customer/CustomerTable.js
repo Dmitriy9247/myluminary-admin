@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
 import * as dayjs from 'dayjs';
 import { TableCell, TableBody, TableRow } from '@windmill/react-ui';
 import { FiZoomIn, FiTrash2 } from 'react-icons/fi';
@@ -7,6 +6,7 @@ import { FiZoomIn, FiTrash2 } from 'react-icons/fi';
 import Tooltip from '../tooltip/Tooltip';
 import MainModal from '../modal/MainModal';
 import { SidebarContext } from '../../context/SidebarContext';
+import SelectRoles from '../table/SelectRoles';
 
 const CustomerTable = ({ customers }) => {
   const [customerId, setCustomerId] = useState('');
@@ -45,7 +45,9 @@ const CustomerTable = ({ customers }) => {
             <TableCell>
               <span className="text-sm font-medium">{user.phone_number}</span>
             </TableCell>
-
+            <TableCell>
+              <SelectRoles id={user._id} role={user.role}/>
+            </TableCell>
             <TableCell>
               <div className="flex justify-end text-right">
                 {/* <div className="p-2 cursor-pointer text-gray-400 hover:text-green-600">

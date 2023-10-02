@@ -72,6 +72,7 @@ const Customers = () => {
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Phone</TableCell>
+                <TableCell>Role</TableCell>
                 <TableCell className="text-right">Actions</TableCell>
               </tr>
             </TableHeader>

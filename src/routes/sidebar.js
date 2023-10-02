@@ -43,43 +43,43 @@ const sidebar = [
     icon: FiUsers,
     name: 'Customers',
   },
-  {
-    path: '/orders',
-    icon: FiCompass,
-    name: 'Orders',
-  },
-  {
-    path: '/coupons',
-    icon: FiGift,
-    name: 'Coupons',
-  },
-  {
-    path: '/our-staff',
-    icon: FiUser,
-    name: 'Our Staff',
-  },
-  {
-    path: '/setting',
-    icon: FiSettings,
-    name: 'Setting',
-  },
+  // {
+  //   path: '/orders',
+  //   icon: FiCompass,
+  //   name: 'Orders',
+  // },
+  // {
+  //   path: '/coupons',
+  //   icon: FiGift,
+  //   name: 'Coupons',
+  // },
+  // {
+  //   path: '/our-staff',
+  //   icon: FiUser,
+  //   name: 'Our Staff',
+  // },
+  // {
+  //   path: '/setting',
+  //   icon: FiSettings,
+  //   name: 'Setting',
+  // },
 
-  {
-    icon: FiSlack,
-    name: 'Pages',
-    routes: [
-      // submenu
+  // {
+  //   icon: FiSlack,
+  //   name: 'Pages',
+  //   routes: [
+  //     // submenu
 
-      {
-        path: '/404',
-        name: '404',
-      },
-      {
-        path: '/coming-soon',
-        name: 'Coming Soon',
-      },
-    ],
-  },
+  //     {
+  //       path: '/404',
+  //       name: '404',
+  //     },
+  //     {
+  //       path: '/coming-soon',
+  //       name: 'Coming Soon',
+  //     },
+  //   ],
+  // },
 ];
 
 export default sidebar;

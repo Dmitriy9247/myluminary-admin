@@ -23,12 +23,6 @@ const ShowHideButton = ({ id, status }) => {
     }
 
     if (location.pathname === '/category') {
-      // CategoryServices.updateStatus(id, { status: newStatus })
-      //   .then((res) => {
-      //     setIsUpdate(true);
-      //     notifySuccess(res.message);
-      //   })
-      //   .catch((err) => notifyError(err.message));
       const updatedData = {
         status: newStatus
       }
