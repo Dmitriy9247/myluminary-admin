@@ -143,3 +143,23 @@ mutation DeleteUser($id: ID!){
     deleteUser(_id:$id)
  }
 `;
+
+export const CREATE_FAQ = gql`
+mutation CreateFaq($question: String!, $answer: String!, $faq_type: String!) {
+    createFaq(input: {question: $question, answer: $answer, faq_type: $faq_type}){
+        _id,
+        question,
+        answer
+    }
+}
+`;
+
+export const UPDATE_FAQ = gql`
+mutation UpdateFaq($id:ID!, $question: String!, $answer: String!, $faq_type: String!) {
+    updateFaq(_id:$id, input: {question: $question, answer: $answer, faq_type: $faq_type}){
+        _id,
+        question,
+        answer
+    }
+}
+`
