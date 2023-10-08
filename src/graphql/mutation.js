@@ -163,3 +163,13 @@ mutation UpdateFaq($id:ID!, $question: String!, $answer: String!, $faq_type: Str
     }
 }
 `
+
+export const DELETE_FAQ = gql`
+mutation DeleteFaq($id: ID!){
+    deleteFaq(_id:$id){
+        _id,
+        question,
+        answer
+    }
+ }
+`;
