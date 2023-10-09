@@ -1,5 +1,6 @@
 import Scrollbars from "react-custom-scrollbars-2"
 import Title from "../form/Title"
+import Error from '../form/Error';
 import useFAQSubmit from "../../hooks/useFAQSubmit"
 import LabelArea from "../form/LabelArea";
 import InputArea from "../form/InputArea";
