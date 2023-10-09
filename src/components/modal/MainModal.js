@@ -3,17 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { Modal, ModalBody, ModalFooter, Button } from '@windmill/react-ui';
 import { FiTrash2 } from 'react-icons/fi';
 
-import UserServices from '../../services/UserServices';
 import AdminServices from '../../services/AdminServices';
 import CouponServices from '../../services/CouponServices';
-import ProductServices from '../../services/ProductServices';
-import CategoryServices from '../../services/CategoryServices';
 import { SidebarContext } from '../../context/SidebarContext';
 import { notifySuccess, notifyError } from '../../utils/toast';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
 import { useMutation } from '@apollo/client';
-import { DELETE_BRAND, DELETE_CATEGORY, DELETE_PRODUCT, DELETE_USER, DELETE_VARIANT } from '../../graphql/mutation';
-import productData from '../../utils/products';
+import { DELETE_BRAND, DELETE_CATEGORY, DELETE_FAQ, DELETE_PRODUCT, DELETE_USER, DELETE_VARIANT } from '../../graphql/mutation';
 
 const MainModal = ({ id, title }) => {
   const { isModalOpen, closeModal, setIsUpdate } = useContext(SidebarContext);
@@ -24,6 +20,7 @@ const MainModal = ({ id, title }) => {
   const [deleteProduct] = useMutation(DELETE_PRODUCT)
   const [deleteVariant] = useMutation(DELETE_VARIANT)
   const [deleteUser] = useMutation(DELETE_USER)
+  const [deleteFaq] = useMutation(DELETE_FAQ)
 
   const handleDelete = () => {
     console.log(location.pathname)
@@ -63,6 +60,14 @@ const MainModal = ({ id, title }) => {
     if (location.pathname === '/customers') {
       deleteUser({variables: {id}}).then((res) => {
         setIsUpdate(true)
+        notifySuccess("Successfully Deleted!");
+      })
+      closeModal();
+      setServiceId();
+    }
+    if (location.pathname === '/faqs') {
+      deleteFaq({variables:{id}}).then((res) => {
+        setIsUpdate(true);
         notifySuccess("Successfully Deleted!");
       })
       closeModal();

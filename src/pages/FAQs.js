@@ -44,6 +44,7 @@ const FAQs = () => {
                                     <TableCell>ID</TableCell>
                                     <TableCell>Question</TableCell>
                                     <TableCell>FAQ Type</TableCell>
+                                    <TableCell className='text-right'>Actions</TableCell>
                                 </tr>
                             </TableHeader>
                             <FAQTable faqs={dataTable}></FAQTable>
