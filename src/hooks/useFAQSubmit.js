@@ -1,10 +1,11 @@
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { CREATE_FAQ, CREATE_PRODUCT } from "../graphql/mutation";
+import { CREATE_FAQ, UPDATE_FAQ } from "../graphql/mutation";
 import { GET_FAQ } from "../graphql/query";
 import { useContext } from "react";
 import { notifyError, notifySuccess } from "../utils/toast";
 import { useEffect } from "react";
+import { SidebarContext } from "../context/SidebarContext";
 
 const useFAQSubmit = (id) => {
 
@@ -12,13 +13,12 @@ const useFAQSubmit = (id) => {
 
     const[createFaq] = useMutation(CREATE_FAQ)
     const[updateFaq] = useMutation(UPDATE_FAQ)
-    const[getFaq] = useLazyQuery(GET_FAQ) 
+    const[getFaq] = useLazyQuery(GET_FAQ)
 
 
     const {
         register,
         handleSubmit,
-        watch,
         setValue,
         clearErrors,
         formState: { errors },
