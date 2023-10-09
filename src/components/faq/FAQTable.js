@@ -2,13 +2,17 @@ import { TableCell, TableBody, TableRow } from '@windmill/react-ui';
 import useToggleDrawer from '../../hooks/useToggleDrawer';
 import EditDeleteButton from '../table/EditDeleteButton';
 import MainModal from '../modal/MainModal';
+import MainDrawer from '../drawer/MainDrawer';
+import FAQDrawer from '../drawer/FAQDrawer';
 
 const FAQTable = ({faqs}) => {
     const {title, serviceId, handleModalOpen, handleUpdate} = useToggleDrawer();
     return (
         <>
             <MainModal id={serviceId} title={title} />
-
+            <MainDrawer>
+                <FAQDrawer id={serviceId} />
+            </MainDrawer>
             <TableBody>
                 {
                     faqs?.map((faq) => (
