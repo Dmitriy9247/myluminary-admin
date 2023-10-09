@@ -4,8 +4,9 @@ import Error from '../form/Error';
 import useFAQSubmit from "../../hooks/useFAQSubmit"
 import LabelArea from "../form/LabelArea";
 import InputArea from "../form/InputArea";
-import { Textarea } from "@windmill/react-ui";
+import { Select, Textarea } from "@windmill/react-ui";
 import DrawerButton from "../form/DrawerButton";
+import { FAQ_TYPES } from "../../utils/enums";
 
 const FAQDrawer = ({ id }) => {
     const {
@@ -64,6 +65,26 @@ const FAQDrawer = ({ id }) => {
                                 placeholder="Answer"
                             />
                             <Error errorName={errors.answer} />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 mb-6">
+                        <LabelArea label="FAQ Type"/>
+                        <div className="col-span-8 sm:col-span-4">
+                            <Select
+                                className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 dark:bg-white border-transparent focus:bg-white"
+                                name="faq_type"
+                                {...register('faq_type', {
+                                    required: 'FAQ Type is required!',
+                                })}
+                            >
+                                <option value="" defaultValue hidden>
+                                    Select FAQ Type
+                                </option>
+                                {
+                                    FAQ_TYPES.map((item) => <option key={item.value} value={item.value}>{item.title}</option>)
+                                }
+                            </Select>
+                            <Error errorName={errors.faq_type} />
                         </div>
                     </div>
                 </div>
