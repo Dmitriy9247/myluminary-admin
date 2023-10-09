@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { SidebarContext } from '../context/SidebarContext';
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../graphql/mutation';
 import { GET_PRODUCT } from '../graphql/query';
-import ProductServices from '../services/ProductServices';
 import { notifyError, notifySuccess } from '../utils/toast';
 import { storjImage } from '../services/StorjService';
 import slugify from 'slugify';
@@ -76,11 +75,11 @@ const useProductSubmit = (id) => {
       setValue('category');
       setImageUrl(null);
       setTag([]);
-      setValue('name');
-      setValue('slug');
-      setValue('short_description');
-      setValue('long_description');
-      setValue('category');
+      clearErrors('name');
+      clearErrors('slug');
+      clearErrors('short_description');
+      clearErrors('long_description');
+      clearErrors('category');
       return;
     }
 
