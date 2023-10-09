@@ -43,6 +43,11 @@ const sidebar = [
     icon: FiUsers,
     name: 'Customers',
   },
+  {
+    path: '/faqs',
+    icon: FiGift,
+    name: 'FAQs',
+  },
   // {
   //   path: '/orders',
   //   icon: FiCompass,

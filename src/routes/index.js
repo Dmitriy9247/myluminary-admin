@@ -16,6 +16,7 @@ const Page404 = lazy(() => import('../pages/404'));
 const ComingSoon = lazy(() => import('../pages/ComingSoon'));
 const EditProfile = lazy(() => import('../pages/EditProfile'));
 const Brand = lazy(() => import('../pages/Brand') );
+const FAQs = lazy(() => import("../pages/FAQs"));
 
 /*
 //  * ⚠ These are internal routes!
@@ -85,6 +86,10 @@ const routes = [
   {
     path: '/edit-profile',
     component: EditProfile,
+  },
+  {
+    path: '/faqs',
+    component: FAQs,
   },
 ];
 

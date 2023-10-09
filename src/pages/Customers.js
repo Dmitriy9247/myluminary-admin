@@ -13,10 +13,8 @@ import {
 import { GET_USERS } from '../graphql/query';
 import { useQuery } from '@apollo/client';
 
-import useAsync from '../hooks/useAsync';
 import useFilter from '../hooks/useFilter';
 import NotFound from '../components/table/NotFound';
-import UserServices from '../services/UserServices';
 import Loading from '../components/preloader/Loading';
 import PageTitle from '../components/Typography/PageTitle';
 import CustomerTable from '../components/customer/CustomerTable';

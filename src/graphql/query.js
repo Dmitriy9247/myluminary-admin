@@ -178,7 +178,7 @@ query Users {
       email_verified
   }
 }
-`
+`;
 
 export const GET_USER_BY_EMAIL = gql`
 query FindbyEmail($email:String!) {
@@ -186,6 +186,28 @@ query FindbyEmail($email:String!) {
       _id
       email
       role
+  }
+}
+`;
+
+export const GET_FAQS = gql`
+query Faqs {
+  faqs {
+    _id
+    question
+    answer
+    faq_type
+  }
+}
+`
+
+export const GET_FAQ = gql`
+query Faq($id:ID!) {
+  faq(_id:$id){
+    _id
+    question
+    answer
+    faq_type
   }
 }
 `
