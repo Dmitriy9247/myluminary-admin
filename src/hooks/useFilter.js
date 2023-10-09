@@ -14,6 +14,7 @@ const useFilter = (data) => {
   const [sortedField, setSortedField] = useState('');
   const [searchText, setSearchText] = useState('');
   const [searchUser, setSearchUser] = useState('');
+  const [searchFAQ, setSearchFAQ] = useState('');
   const [searchCoupon, setSearchCoupon] = useState('');
   const [searchOrder, setSearchOrder] = useState('');
   const [categoryType, setCategoryType] = useState('');
@@ -32,6 +33,7 @@ const useFilter = (data) => {
   const [newProducts] = useState([]);
   const searchRef = useRef('');
   const userRef = useRef('');
+  const faqRef = useRef('');
   const couponRef = useRef('');
   const orderRef = useRef('');
   const categoryRef = useRef('');
@@ -134,6 +136,12 @@ const useFilter = (data) => {
       );
     }
 
+    if (searchFAQ) {
+      services = services.filter(
+        (search) => search?.question?.includes(searchFAQ.toLowerCase())
+      );
+    }
+
     //Coupon filtering
 
     if (searchCoupon) {
@@ -168,6 +176,7 @@ const useFilter = (data) => {
     searchUser,
     searchCoupon,
     searchOrder,
+    searchFAQ,
     categoryType,
     brandTitle,
     status,
@@ -207,6 +216,12 @@ const useFilter = (data) => {
     e.preventDefault();
     setSearchUser(userRef.current.value);
   };
+
+  const handleSubmitFAQ = (e) => {
+    e.preventDefault();
+    console.log(faqRef.current.value);
+    setSearchFAQ(faqRef.current.value);
+  }
 
   const handleSubmitCoupon = (e) => {
     e.preventDefault();
@@ -252,6 +267,7 @@ const useFilter = (data) => {
 
   return {
     userRef,
+    faqRef,
     searchRef,
     couponRef,
     orderRef,
@@ -279,6 +295,7 @@ const useFilter = (data) => {
     handleSubmitOrder,
     handleSubmitCategory,
     handleSubmitBrand,
+    handleSubmitFAQ,
     handleOnDrop,
     handleUploadProducts,
   };
