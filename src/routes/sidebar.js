@@ -48,6 +48,16 @@ const sidebar = [
     icon: FiGift,
     name: 'FAQs',
   },
+  {
+    icon: FiSettings,
+    name: 'FAQs',
+    routes : [
+      {
+        path: '/medias',
+        name: 'Media'
+      }
+    ]
+  },
   // {
   //   path: '/orders',
   //   icon: FiCompass,
