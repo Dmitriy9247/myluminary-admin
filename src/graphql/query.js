@@ -211,3 +211,16 @@ query Faq($id:ID!) {
   }
 }
 `
+
+export const GET_MEDIAS = gql`
+query Medias ($limit:Int, $skip:Int){
+  medias(input: {limit: $limit, skip:$skip}){
+      medias {
+          _id
+          bucket
+          key
+      },
+      totalMedias
+  }
+}
+`

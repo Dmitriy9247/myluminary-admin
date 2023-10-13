@@ -50,7 +50,7 @@ const sidebar = [
   },
   {
     icon: FiSettings,
-    name: 'FAQs',
+    name: 'Settings',
     routes : [
       {
         path: '/medias',

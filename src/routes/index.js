@@ -17,6 +17,7 @@ const ComingSoon = lazy(() => import('../pages/ComingSoon'));
 const EditProfile = lazy(() => import('../pages/EditProfile'));
 const Brand = lazy(() => import('../pages/Brand') );
 const FAQs = lazy(() => import("../pages/FAQs"));
+const Medias = lazy(() => import("../pages/Medias"));
 
 /*
 //  * ⚠ These are internal routes!
@@ -91,6 +92,10 @@ const routes = [
     path: '/faqs',
     component: FAQs,
   },
+  {
+    path: '/medias',
+    component: Medias,
+  }
 ];
 
 export default routes;
