@@ -189,3 +189,19 @@ mutation CreatePost($title: String!, $main_image: ID, $content: String!, $author
     }
 }
 `
+
+export const DELETE_POST = gql`
+mutation DeletePost($id: ID!){
+    deletePost (_id:$id) {
+        title
+        content
+        author {
+            name
+        }
+        main_image {
+            bucket
+            key
+        }
+    }
+}
+`
