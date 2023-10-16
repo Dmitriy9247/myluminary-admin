@@ -173,3 +173,19 @@ mutation DeleteFaq($id: ID!){
     }
  }
 `;
+
+export const CREATE_POST = gql`
+mutation CreatePost($title: String!, $main_image: ID, $content: String!, $author: ID!){
+    createPost (input: {title:$title, main_image:$main_image, content: $content, author: $author}) {
+        title
+        content
+        author {
+            name
+        }
+        main_image {
+            bucket
+            key
+        }
+    }
+}
+`
