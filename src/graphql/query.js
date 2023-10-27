@@ -78,6 +78,42 @@ export const GET_BRANDS = gql`
   }
 `
 
+export const GET_BLOGS = gql`
+query Posts {
+  posts {
+    _id
+    title
+    author
+    main_image {
+      _id
+      bucket
+      key
+    }
+    content
+    postType
+    createdAt
+  }
+}
+`
+
+export const GET_BLOG = gql`
+query Post($id:ID!) {
+  post(_id:$id) {
+    _id
+    title
+    author
+    main_image {
+      _id
+      bucket
+      key
+    }
+    content
+    postType
+    createdAt
+  }
+}
+`
+
 export const GET_PRODUCT = gql`
 query Product($id:ID!) {
   product(_id:$id) {

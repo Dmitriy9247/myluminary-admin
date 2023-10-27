@@ -28,7 +28,7 @@ const Login = () => {
         returnTo: process.env.REACT_APP_URL,
       }
   });
-
+  
   useEffect(() => {
     if(isAuthenticated){
       const email = user?.email
@@ -40,10 +40,12 @@ const Login = () => {
             Cookies.set('adminInfo', JSON.stringify(jsonData), {
               expires: cookieTimeOut,
             });
-            history.replace('/dashboard');
+            history.replace('/products');
           }
+        }else{
+          setTimeout(logoutWithRedirect(), 2000)
         }
-        setTimeout(logoutWithRedirect(), 2000)
+        
       }).catch((err) => {
         notifyError(err)
         setTimeout(logoutWithRedirect(), 2000)

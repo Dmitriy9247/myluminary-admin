@@ -18,7 +18,7 @@ const EditProfile = lazy(() => import('../pages/EditProfile'));
 const Brand = lazy(() => import('../pages/Brand') );
 const FAQs = lazy(() => import("../pages/FAQs"));
 const Medias = lazy(() => import("../pages/Medias"));
-
+const Blog = lazy(() => import('../pages/Blog'));
 /*
 //  * ⚠ These are internal routes!
 //  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -50,6 +50,10 @@ const routes = [
   {
     path: '/brands',
     component: Brand,
+  },
+  {
+    path: '/blogs',
+    component: Blog,
   },
   {
     path: '/customers',

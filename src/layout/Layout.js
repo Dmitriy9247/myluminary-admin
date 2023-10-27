@@ -42,7 +42,7 @@ const Layout = () => {
                   />
                 ) : null;
               })}
-              <Redirect exact from="/" to="/dashboard" />
+              <Redirect exact from="/" to="/products" />
               <Route component={Page404} />
             </Switch>
           </Suspense>

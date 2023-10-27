@@ -175,29 +175,42 @@ mutation DeleteFaq($id: ID!){
 `;
 
 export const CREATE_POST = gql`
-mutation CreatePost($title: String!, $main_image: ID, $content: String!, $author: ID!){
-    createPost (input: {title:$title, main_image:$main_image, content: $content, author: $author}) {
+mutation CreatePost($title: String!, $main_image: ID, $content: String!, $author : String, $postType : String, $slug : String){
+    createPost (input: {title:$title, main_image:$main_image, content: $content, author : $author, postType : $postType, slug : $slug}) {
         title
         content
-        author {
-            name
-        }
+        author
         main_image {
             bucket
             key
         }
+        postType
+        slug
     }
 }
 `
+export const UPDATE_POST = gql`
+mutation UpdatePost($id:ID!, $title: String!, $main_image: ID, $content: String!, $author : String, $postType : String, $slug : String){
+    updatePost(_id:$id, input: {title:$title, main_image:$main_image, content: $content, author : $author, postType : $postType, slug : $slug}){
+        title
+        content
+        author
+        main_image {
+            bucket
+            key
+        }
+        postType
+        slug
+    }
+}
+`;
 
 export const DELETE_POST = gql`
 mutation DeletePost($id: ID!){
     deletePost (_id:$id) {
         title
         content
-        author {
-            name
-        }
+        author
         main_image {
             bucket
             key
