@@ -16,6 +16,7 @@ import NotFound from '../components/table/NotFound';
 import Loading from '../components/preloader/Loading';
 import PageTitle from '../components/Typography/PageTitle';
 import ProductTable from '../components/product/ProductTable';
+import FacilitiesTable from '../components/facilities/FacilitiesTable';
 import SelectCategory from '../components/form/SelectCategory';
 import MainDrawer from '../components/drawer/MainDrawer';
 import ProductDrawer from '../components/drawer/ProductDrawer';
@@ -73,7 +74,7 @@ const MetrcFacilities = () => {
                 <TableCell className="text-right">Actions</TableCell>
               </tr>
             </TableHeader>
-            <ProductTable products={facilityData} />
+            <FacilitiesTable facilities={facilityData} />
           </Table>
           {/* <TableFooter>
             <Pagination

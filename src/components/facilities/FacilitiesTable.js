@@ -18,6 +18,7 @@ import useToggleDrawer from '../../hooks/useToggleDrawer';
 import { storjImage } from '../../services/StorjService';
 
 const FacilitiesTable = ({ facilities }) => {
+  console.log(facilities);
   const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
 
   return (
