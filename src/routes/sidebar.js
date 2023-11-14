@@ -49,6 +49,11 @@ const sidebar = [
     name: 'Blogs',
   },
   {
+    path: '/facilities',
+    icon: FiGift,
+    name: 'Metrc Facilities',
+  },
+  {
     path: '/faqs',
     icon: FiGift,
     name: 'FAQs',

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Table,
   TableHeader,
@@ -49,20 +49,13 @@ const MetrcFacilities = () => {
     fetchData();
   }, []);
 
-  useEffect(()=>{
-    if (isUpdate){
-      refetch()
-      setIsUpdate(false)
-    }
-  },[isUpdate])
-
   return (
     <>
       <PageTitle>Facilities</PageTitle>
 
       {loading ? (
         <Loading loading={loading} />
-      ) : data?.products || data?.products.products.length !== 0 ? (
+      ) : facilityData || facilityData?.length !== 0 ? (
         <TableContainer className="mb-8 rounded-b-lg">
           <Table>
             <TableHeader>
