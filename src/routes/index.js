@@ -19,6 +19,7 @@ const Brand = lazy(() => import('../pages/Brand') );
 const FAQs = lazy(() => import("../pages/FAQs"));
 const Medias = lazy(() => import("../pages/Medias"));
 const Blog = lazy(() => import('../pages/Blog'));
+const Facilities = lazy(() => import('../pages/MetrcFacilities'));
 /*
 //  * ⚠ These are internal routes!
 //  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -99,6 +100,10 @@ const routes = [
   {
     path: '/medias',
     component: Medias,
+  },
+  {
+    path: '/facilities',
+    component: Facilities,
   }
 ];
 
