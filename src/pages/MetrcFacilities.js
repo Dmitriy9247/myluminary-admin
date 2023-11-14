@@ -33,7 +33,7 @@ const MetrcFacilities = () => {
         url: 'https://sandbox-api-dc.metrc.com/facilities/v2/',
         headers: { 
           'Authorization': 'Basic MmNZVEVHV0ZxWHFWVm1UcGYxQjZpTUpWQWVBaWVzaVJNcUduMmdvdzgxdXYybDZSOmhHS2pGamZuTHJHZDQ2V2NqUGZjRVNxTm9sck9XeURyOTdTclBMNnlqY3VETm41VQ==',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': 'no-cors'
         }
       };
   
