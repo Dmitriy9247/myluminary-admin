@@ -48,11 +48,11 @@ const FacilitiesTable = ({ facilities }) => {
             </TableCell>
 
             <TableCell>
-              <span className="text-sm font-semibold">{ facility?.FacilityType.IsMedical }</span>
+              <span className="text-sm font-semibold">{ facility?.FacilityType.IsMedical ? "True" : "False" }</span>
             </TableCell>
 
             <TableCell>
-              <span className="text-sm font-semibold">{ facility?.FacilityType.IsRetail }</span>
+              <span className="text-sm font-semibold">{ facility?.FacilityType.IsRetail ? "True" : "False" }</span>
             </TableCell>
 
             <TableCell>
