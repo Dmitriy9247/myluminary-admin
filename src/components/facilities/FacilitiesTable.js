@@ -18,7 +18,7 @@ import useToggleDrawer from '../../hooks/useToggleDrawer';
 import { storjImage } from '../../services/StorjService';
 
 const FacilitiesTable = ({ facilities }) => {
-  console.log(facilities.data.FacilityType.IsMedical);
+  console.log(facilities.data);
   const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
 
   return (
@@ -48,11 +48,11 @@ const FacilitiesTable = ({ facilities }) => {
             </TableCell>
 
             <TableCell>
-              <span className="text-sm font-semibold">False</span>
+              <span className="text-sm font-semibold">{ facility?.FacilityType.IsMedical ? "True" : "False" }</span>
             </TableCell>
 
             <TableCell>
-              <span className="text-sm font-semibold">False</span>
+              <span className="text-sm font-semibold">{ facility?.FacilityType.IsRetail ? "True" : "False" }</span>
             </TableCell>
 
             <TableCell>
