@@ -18,7 +18,7 @@ import useToggleDrawer from '../../hooks/useToggleDrawer';
 import { storjImage } from '../../services/StorjService';
 
 const FacilitiesTable = ({ facilities }) => {
-  console.log(facilities);
+  console.log(facilities.data);
   const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
 
   return (
@@ -28,7 +28,7 @@ const FacilitiesTable = ({ facilities }) => {
         <ProductDrawer id={serviceId} />
       </MainDrawer>
       <TableBody>
-        {facilities?.map((facility, i) => (
+        {facilities?.data?.map((facility, i) => (
           <TableRow key={i + 1}>
             <TableCell>
               <span className="text-xs uppercase font-semibold">
