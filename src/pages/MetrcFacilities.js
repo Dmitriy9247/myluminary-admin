@@ -30,13 +30,9 @@ const MetrcFacilities = () => {
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'https://sandbox-api-dc.metrc.com/facilities/v2/',
-        headers: { 
-          'Authorization': 'Basic MmNZVEVHV0ZxWHFWVm1UcGYxQjZpTUpWQWVBaWVzaVJNcUduMmdvdzgxdXYybDZSOmhHS2pGamZuTHJHZDQ2V2NqUGZjRVNxTm9sck9XeURyOTdTclBMNnlqY3VETm41VQ==',
-          'Access-Control-Allow-Origin': 'no-cors'
-        }
+        url: 'https://dancing-production.up.railway.app/GetMetrcFacilities'
       };
-  
+
       try {
         setLoading(true);
         const response = await axios.request(config);
